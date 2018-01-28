@@ -71,22 +71,45 @@ public class CommandParser {
 			}
 			
 		} else if (commandScript.startsWith("Ir ao popup")) {
+			
 			command = new SwitchWindowCommand(null);
+			
+		} else if (commandScript.startsWith("Selecione")) {
+			
+			WebElementInfo info = findWebElement("combo");
+			String optionValue = this.findQuotedParameter(commandScript, 1);
+			String name = this.findQuotedParameter(commandScript, 2);
+			command = new SelectCommand(info, name, optionValue);
+			
 		}
 		
 		return command;
 	}
+	
+	private String findQuotedParameter(String scriptlet, int order) {
+		String quotedParam = "";
+		int startIndex = scriptlet.indexOf("\"") + 1;
+		for (int i = 1; i < order; i++) {
+			startIndex = scriptlet.indexOf("\"", startIndex) + 1;
+			startIndex = scriptlet.indexOf("\"", startIndex) + 1;
+		}
+		if (startIndex > 0) {
+			int endIndex = scriptlet.indexOf("\"", startIndex);
+			quotedParam = scriptlet.substring(startIndex, endIndex);
+		}
+		
+		return quotedParam;
+	}
 
 
 	private FilterCommand parseFilterComand(String commandScript) {
-		FilterCommand command;
 		String script = commandScript.substring(3);
 		int indexSpace = script.indexOf(" ");
 		indexSpace = indexSpace > 0 ? indexSpace : script.length();
-		String itemName = script.substring(0, indexSpace).trim();
-		WebElementInfo info = findWebElement(itemName);
-		command = new FilterCommand(info);
-		return command;
+		String elType = script.substring(0, indexSpace).trim();
+		String name = this.findQuotedParameter(commandScript, 1);
+		WebElementInfo info = findWebElement(elType);
+		return new FilterCommand(name, info);
 	}
 
 }

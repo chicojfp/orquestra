@@ -1,7 +1,10 @@
 package io.breezil.orquestra.musico.commands;
 
+import java.util.Objects;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -33,10 +36,11 @@ public class Command {
 	
 	protected WebElement findWebElement(WebDriver driver, String xpath) {
 		String xpathString = this.getxPathModification() + String.format(xpath, this.name);
+		System.out.println("Procurando elemento: " + xpathString);
 		WebElement we = null;
 		try {
 			we = findElement(driver, xpath);
-		} catch (NoSuchElementException nse) {
+		} catch (NoSuchElementException | TimeoutException nse) {
 			try {
 				new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.xpath(xpathString)));
 				we = findElement(driver, xpath);
@@ -44,11 +48,22 @@ public class Command {
 				System.err.println("Não foi possível recuperar o elemento: " + xpathString);
 			}
 		}
+		if (!Objects.isNull(we)) {
+			String forElementName = we.getAttribute("for"); 
+			if (!Objects.isNull(forElementName)) {
+				we = findWebElementById(driver, forElementName);
+			}
+		}
 		return we;
 	}
 
 	private WebElement findElement(WebDriver driver, String xpath) {
-		return driver.findElement(By.xpath(String.format(xpath, this.name)));
+		return new WebDriverWait(driver, 1).until(ExpectedConditions.elementToBeClickable(By.xpath(String.format(xpath, this.name))));
+//		return driver.findElement(By.xpath(String.format(xpath, this.name)));
+	}
+	
+	protected WebElement findWebElementById(WebDriver driver, String id) {
+		return driver.findElement(By.id(id));
 	}
 
 }

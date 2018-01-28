@@ -17,6 +17,7 @@ public class ClickCommand extends Command {
 			WebElement el = findWebElement(driver, xpath);
 			if (el != null) {
 				el.click();
+				System.out.println("Click");
 				return true;
 			}
 		}

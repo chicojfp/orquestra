@@ -2,7 +2,9 @@
 	{
 		"name": "botão",
 		"xpaths": [	"//button[contains(.,\"%s\")]", 
-					"//button[@aria-label=\"%s\"]"	 ]
+					"//button[@aria-label=\"%s\"]",
+					"//input[@type='button' and @value='%s']"
+				  ]
 	},
 	{
 		"name": "campo",
@@ -14,7 +16,9 @@
 	},
 	{
 		"name": "combo",
-		"xpaths": ["//mat-select[@placeholder=\"%s\"]"]
+		"xpaths": ["//mat-select[@placeholder=\"%s\"]",
+		           "//label[contains(.,\"%s\")]" 
+		          ]
 	},
 	{
 		"name": "item da combo",
@@ -38,6 +42,22 @@
 	{
 		"name": "checkbox",
 		"xpaths": ["//mat-checkbox[contains(@aria-label,\"%s\")]"]
+	},
+	{
+		"name": "quadro",
+		"xpaths": ["//div/div[contains(.,\"%s\") and contains(@class,'rich-panel-header')]/parent::*"]
+	},
+	{
+		"name": "rótulo",
+		"xpaths": ["//label[contains(.,\"%s\")"]
+	},
+	{
+		"name": "imagem",
+		"xpaths": ["//img[contains(@title,\"%s\")]/parent::*"]
+	},
+	{
+		"name": "aba",
+		"xpaths": ["//td[contains(@class,\"rich-tab-header\") and contains(text(),\"%s\")]"]
 	}
 
 ]

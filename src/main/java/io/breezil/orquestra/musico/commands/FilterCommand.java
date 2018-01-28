@@ -8,8 +8,8 @@ public class FilterCommand extends Command {
 	private WebElementInfo webElementInfo;
 	private Command actualCommand;
 	
-	public FilterCommand(WebElementInfo webElementInfo) {
-		super(null);
+	public FilterCommand(String name, WebElementInfo webElementInfo) {
+		super(name);
 		this.webElementInfo = webElementInfo;
 	}
 
@@ -25,7 +25,7 @@ public class FilterCommand extends Command {
 	public boolean execute(WebDriver driver) {
 		for (String xpath : this.webElementInfo.getXpaths()) {
 			String previusMod = Objects.toString(this.getxPathModification(), "");
-			this.actualCommand.setxPathModification(previusMod + xpath); 
+			this.actualCommand.setxPathModification(previusMod + String.format(xpath, this.name)); 
 			this.actualCommand.execute(driver);
 		}
 
