@@ -1,0 +1,43 @@
+[
+	{
+		"name": "botão",
+		"xpaths": [	"//button[contains(.,\"%s\")]", 
+					"//button[@aria-label=\"%s\"]"	 ]
+	},
+	{
+		"name": "campo",
+		"xpaths": ["//input[@placeholder=\"%s\"]"]
+	},
+	{
+		"name": "agrupador",
+		"xpaths": ["//mat-card[contains(.,\"%s\")]"]
+	},
+	{
+		"name": "combo",
+		"xpaths": ["//mat-select[@placeholder=\"%s\"]"]
+	},
+	{
+		"name": "item da combo",
+		"xpaths": ["//mat-option[contains(.,\"%s\")]"]
+	},
+	{
+		"name": "tabela",
+		"xpaths": ["//table"]
+	},
+	{
+		"name": "linha",
+		"xpaths": ["//tbody//tr[2]"]
+	},
+	{
+		"name": "ícone",
+		"xpaths": ["//a//*[@aria-label=\"%s\"]/parent::*"]
+	},{
+		"name": "link",
+		"xpaths": ["//a[contains(.,\"%s\")]"]
+	},
+	{
+		"name": "checkbox",
+		"xpaths": ["//mat-checkbox[contains(@aria-label,\"%s\")]"]
+	}
+
+]
