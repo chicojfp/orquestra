@@ -17,7 +17,7 @@
 <OrigemDado> := " <value> " | da variável " <variavel> " ;
 
 <FilterCommand> := <nona> <item> <filterargs> <exp>;
-<filterargs> := , | <filterparam> ,;
+<filterargs> := , | <order> ,;
 <actualCommand> := <exp>;
 
 <SwitchWindowCommand> := Ir para popup " <descricao> " ;
@@ -38,6 +38,6 @@
 <name> := ^[-\w* *:*/*.*ª\p{L}]+;
 <combo> := ^[\w*\s*]+;
 <descricao> := ^[\-\w\s/:.\p{L}]+;
-<filterparam> := ^\w+;
+<order> := ^\w+;
 <url> := ^[\w:/.]+;
 <variavel> := ^[\w:/.]+;

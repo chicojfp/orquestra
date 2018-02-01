@@ -13,7 +13,7 @@ public class ClickCommand extends Command {
 	public boolean execute(WebDriver driver, WebElementSeacher seacher) {
 		WebElementInfo elInfo = seacher.findItem(this.getItem());
 		for (String xpath : elInfo.getXpaths()) {
-			WebElement el = findWebElement(driver, xpath);
+			WebElement el = seacher.findWebElement(driver, this.updateXPathFilter(xpath));
 			if (el != null) {
 				el.click();
 				System.out.println("Click");

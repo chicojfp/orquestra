@@ -15,7 +15,7 @@ public class FillInputCommand extends Command {
 		WebElementInfo elInfo = seacher.findItem(this.getItem());
 		for (String xpath : elInfo.getXpaths()) {
 			try {
-				WebElement el = findWebElement(driver, xpath);
+				WebElement el = seacher.findWebElement(driver, this.updateXPathFilter(xpath));
 				el.sendKeys(this.value);
 				return true;
 			} catch (Exception e) {

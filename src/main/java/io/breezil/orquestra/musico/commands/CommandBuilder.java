@@ -27,6 +27,12 @@ public class CommandBuilder {
 		if (node.getValue() == null) {
 			return node.getToken();
 		}
+		if (node.getToken().equals("<exp>")) {
+			node = node.getChildren().get(0);
+			Command cmd = new CommandBuilder().build(node.getToken().substring(1, node.getToken().length() -1)).fillParameters(node);
+			((FilterCommand) building).setActualCommand(cmd);
+			return null;
+		}
 		for (ParseNode child : node.getChildren()) {
 			String value = recursiveFillProperties(building, child);
 			definePropertieValue(building, node.getToken().substring(1, node.getToken().length() - 1), value);

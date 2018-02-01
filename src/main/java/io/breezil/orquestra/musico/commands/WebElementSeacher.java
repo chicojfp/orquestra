@@ -5,6 +5,15 @@ import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
@@ -37,6 +46,38 @@ public class WebElementSeacher {
 			}
 		}
 		return null;
+	}
+	
+	protected WebElement findWebElement(WebDriver driver, String xpath) {
+		String xpathString = xpath; //this.getxPathModification() + String.format(xpath, this.name);
+		System.out.println("Procurando elemento: " + xpathString);
+		WebElement we = null;
+		try {
+			we = findElement(driver, xpath);
+		} catch (NoSuchElementException | TimeoutException nse) {
+			try {
+				new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.xpath(xpathString)));
+				we = findElement(driver, xpath);
+			} catch (org.openqa.selenium.TimeoutException te) {
+				System.err.println("Não foi possível recuperar o elemento: " + xpathString);
+			}
+		}
+		if (!Objects.isNull(we)) {
+			String forElementName = we.getAttribute("for"); 
+			if (!Objects.isNull(forElementName)) {
+				we = findWebElementById(driver, forElementName);
+			}
+		}
+		return we;
+	}
+	
+	protected WebElement findWebElementById(WebDriver driver, String id) {
+		return driver.findElement(By.id(id));
+	}
+	
+	private WebElement findElement(WebDriver driver, String xpath) {
+		return new WebDriverWait(driver, 1).until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+//		return driver.findElement(By.xpath(String.format(xpath, this.name)));
 	}
 
 }

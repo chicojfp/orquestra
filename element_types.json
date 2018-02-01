@@ -30,7 +30,7 @@
 	},
 	{
 		"name": "linha",
-		"xpaths": ["//tbody//tr[2]"]
+		"xpaths": ["//tbody//tr%s"]
 	},
 	{
 		"name": "ícone",
