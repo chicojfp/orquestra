@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Command {
 	protected String name;
+	protected String item;
 	private String xPathModification = "";
 	
 	public String getxPathModification() {
@@ -29,8 +30,7 @@ public class Command {
 	}
 	
 	
-	public boolean execute(WebDriver driver) {		
-		
+	public boolean execute(WebDriver driver, WebElementSeacher seacher) {
 		return false;
 	}
 	
@@ -66,4 +66,24 @@ public class Command {
 		return driver.findElement(By.id(id));
 	}
 
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public String getItem() {
+		return item;
+	}
+
+
+	public void setItem(String item) {
+		this.item = item;
+	}
+	
 }

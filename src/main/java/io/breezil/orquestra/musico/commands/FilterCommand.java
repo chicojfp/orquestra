@@ -5,12 +5,10 @@ import java.util.Objects;
 import org.openqa.selenium.WebDriver;
 
 public class FilterCommand extends Command {
-	private WebElementInfo webElementInfo;
 	private Command actualCommand;
 	
-	public FilterCommand(String name, WebElementInfo webElementInfo) {
-		super(name);
-		this.webElementInfo = webElementInfo;
+	public FilterCommand() {
+		super("");
 	}
 
 	public Command getActualCommand() {
@@ -22,11 +20,12 @@ public class FilterCommand extends Command {
 	}
 	
 	@Override
-	public boolean execute(WebDriver driver) {
-		for (String xpath : this.webElementInfo.getXpaths()) {
+	public boolean execute(WebDriver driver, WebElementSeacher seacher) {
+		WebElementInfo elInfo = seacher.findItem(this.getItem());
+		for (String xpath : elInfo.getXpaths()) {
 			String previusMod = Objects.toString(this.getxPathModification(), "");
 			this.actualCommand.setxPathModification(previusMod + String.format(xpath, this.name)); 
-			this.actualCommand.execute(driver);
+			this.actualCommand.execute(driver, seacher);
 		}
 
 		return false;

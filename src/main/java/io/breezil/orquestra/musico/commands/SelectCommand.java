@@ -15,8 +15,9 @@ public class SelectCommand extends Command {
 	}
 	
 	@Override
-	public boolean execute(WebDriver driver) {
-		for (String xpath : this.webElementInfo.getXpaths()) {
+	public boolean execute(WebDriver driver, WebElementSeacher seacher) {
+		WebElementInfo elInfo = seacher.findItem(this.getItem());
+		for (String xpath : elInfo.getXpaths()) {
 			WebElement el = findWebElement(driver, xpath);
 			if (el != null) {
 				Select select = new Select(el);

@@ -4,16 +4,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class ClickCommand extends Command {
-	WebElementInfo webElementInfo;
 
-	public ClickCommand(WebElementInfo webElementInfo, String name) {
-		super(name);
-		this.webElementInfo = webElementInfo;
+	public ClickCommand() {
+		super("");
 	}
 
 	@Override
-	public boolean execute(WebDriver driver) {
-		for (String xpath : this.webElementInfo.getXpaths()) {
+	public boolean execute(WebDriver driver, WebElementSeacher seacher) {
+		WebElementInfo elInfo = seacher.findItem(this.getItem());
+		for (String xpath : elInfo.getXpaths()) {
 			WebElement el = findWebElement(driver, xpath);
 			if (el != null) {
 				el.click();

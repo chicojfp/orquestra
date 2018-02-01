@@ -1,4 +1,4 @@
-package io.breezil.orquestra.musico.rules.reader;
+package io.breezil.orquestra.compositor;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -1,0 +1,43 @@
+# ---------------------------------------------
+# Example of a simple BNF grammar for arithmetic expressions
+# ---------------------------------------------
+
+<exp> := <ClickCommand> | <GoToURLCommand> | <FillInputCommand> | 
+		 <FilterCommand> | <SwitchWindowCommand> | <SelectCommand> | <CopyCommand> |
+		 <GoToWindowCommand>;
+
+<ClickCommand> := <click> <nona> <item> " <name> ";
+<click> := Clique | clique;
+<nona> := no | na | No | Na;
+
+
+<GoToURLCommand> := Acesse <url>;
+
+<FillInputCommand> := Preencha o <item> " <name> " com o valor <OrigemDado>;
+<OrigemDado> := " <value> " | da variável " <variavel> " ;
+
+<FilterCommand> := <nona> <item> <filterargs> <exp>;
+<filterargs> := , | <filterparam> ,;
+<actualCommand> := <exp>;
+
+<SwitchWindowCommand> := Ir para popup " <descricao> " ;
+
+<SelectCommand> := Selecione a <item> " <value> " na combo " <combo> " ;
+
+<CopyCommand> := Salve o valor do <item> " <name> " como " <variavel> " ;
+
+<GoToWindowCommand> := Ir para o popup " <descricao> ";
+
+
+# This last declaration defines the non-terminal symbol num as any
+# sequence of symbols matching the regular expression enclosed between
+# the ^ and $ characters.
+<num> := ^\w+;
+<item> := ^[\w+ã*.*\p{L}]+;
+<value> := ^\w+;
+<name> := ^[-\w* *:*/*.*ª\p{L}]+;
+<combo> := ^[\w*\s*]+;
+<descricao> := ^[\-\w\s/:.\p{L}]+;
+<filterparam> := ^\w+;
+<url> := ^[\w:/.]+;
+<variavel> := ^[\w:/.]+;

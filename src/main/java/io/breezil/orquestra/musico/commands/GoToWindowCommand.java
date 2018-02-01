@@ -4,15 +4,14 @@ import java.util.Set;
 
 import org.openqa.selenium.WebDriver;
 
-public class SwitchWindowCommand extends Command {
+public class GoToWindowCommand extends Command {
 
-	public SwitchWindowCommand(String name) {
-		super(name);
-		// TODO Auto-generated constructor stub
+	public GoToWindowCommand() {
+		super("");
 	}
 	
 	@Override
-	public boolean execute(WebDriver driver) {
+	public boolean execute(WebDriver driver, WebElementSeacher seacher) {
 		
 		Set<String> handles = driver.getWindowHandles();
 		

@@ -5,17 +5,15 @@ import org.openqa.selenium.WebElement;
 
 public class FillInputCommand extends Command {
 	private String value;
-	private WebElementInfo webElementInfo;
 
-	public FillInputCommand(WebElementInfo webElementInfo, String name, String value) {
-		super(name);
-		this.value = value;
-		this.webElementInfo = webElementInfo;
+	public FillInputCommand() {
+		super("");
 	}
 
 	@Override
-	public boolean execute(WebDriver driver) {
-		for (String xpath : this.webElementInfo.getXpaths()) {
+	public boolean execute(WebDriver driver, WebElementSeacher seacher) {
+		WebElementInfo elInfo = seacher.findItem(this.getItem());
+		for (String xpath : elInfo.getXpaths()) {
 			try {
 				WebElement el = findWebElement(driver, xpath);
 				el.sendKeys(this.value);
@@ -26,6 +24,14 @@ public class FillInputCommand extends Command {
 		}
 
 		return false;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
 	}
 
 }

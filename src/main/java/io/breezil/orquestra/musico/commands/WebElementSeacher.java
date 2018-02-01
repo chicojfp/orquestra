@@ -11,9 +11,14 @@ import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
 public class WebElementSeacher {
+	private List<WebElementInfo> weInfos;
+	
+	public WebElementSeacher(String fileName) {
+		this.weInfos = this.loadWEInfos(fileName);
+	}
 	
 	@SuppressWarnings("serial")
-	public List<WebElementInfo> loadWEInfos(String fileName) {
+	private List<WebElementInfo> loadWEInfos(String fileName) {
 		List<WebElementInfo> data = new ArrayList<>();
 		try {
 			JsonReader reader = new JsonReader(new FileReader(fileName));
@@ -23,6 +28,15 @@ public class WebElementSeacher {
 			e.printStackTrace();
 		}
 		return data;
+	}
+
+	public WebElementInfo findItem(String name) {
+		for (WebElementInfo webElementInfo : weInfos) {
+			if (webElementInfo.getName().equals(name)) {
+				return webElementInfo;
+			}
+		}
+		return null;
 	}
 
 }

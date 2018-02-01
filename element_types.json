@@ -21,7 +21,7 @@
 		          ]
 	},
 	{
-		"name": "item da combo",
+		"name": "opção",
 		"xpaths": ["//mat-option[contains(.,\"%s\")]"]
 	},
 	{
