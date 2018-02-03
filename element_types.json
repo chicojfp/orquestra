@@ -8,7 +8,8 @@
 	},
 	{
 		"name": "campo",
-		"xpaths": ["//input[@placeholder=\"%s\"]"]
+		"xpaths": ["//input[@placeholder=\"%s\"]" ,
+		           "//label[contains(text(),\"%s\")]"]
 	},
 	{
 		"name": "agrupador",
@@ -37,7 +38,8 @@
 		"xpaths": ["//a//*[@aria-label=\"%s\"]/parent::*"]
 	},{
 		"name": "link",
-		"xpaths": ["//a[contains(.,\"%s\")]"]
+		"xpaths": ["//a[contains(.,\"%s\")]", 
+	               "//td[@class=\"rich-toolbar-item\" and contains(.,\"%s\")]"]
 	},
 	{
 		"name": "checkbox",
@@ -57,7 +59,19 @@
 	},
 	{
 		"name": "aba",
-		"xpaths": ["//td[contains(@class,\"rich-tab-header\") and contains(text(),\"%s\")]"]
+		"xpaths": ["//td[contains(@class,\"rich-tab-header\") and contains(text(),\"%s\")]/ancestor::table[@role=\"tab\"]"]
+	},
+	{
+		"name": "painel",
+		"xpaths": ["//div[contains(@class,\"rich-panel\") and contains(text(),\"%s\")]/parent::*"]
+	},
+	{
+		"name": "item",
+		"xpaths": ["//*[contains(text(), \"%s\")]"]
+	},
+	{
+		"name": "suggest",
+		"xpaths": ["//table[@class=\"rich-sb-int-decor-table\"]/tbody/tr"]
 	}
 
 ]

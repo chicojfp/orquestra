@@ -1,12 +1,15 @@
 package io.breezil.orquestra.musico.commands;
 
+import java.util.Objects;
+
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class ClickCommand extends Command {
 
 	public ClickCommand() {
-		super("");
+		super();
 	}
 
 	@Override
@@ -15,7 +18,11 @@ public class ClickCommand extends Command {
 		for (String xpath : elInfo.getXpaths()) {
 			WebElement el = seacher.findWebElement(driver, this.updateXPathFilter(xpath));
 			if (el != null) {
-				el.click();
+				if (!Objects.isNull(el.getAttribute("onkeyup"))) {
+					el.sendKeys(Keys.ENTER);
+				} else {
+					el.click();
+				}
 				System.out.println("Click");
 				return true;
 			}

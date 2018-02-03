@@ -1,6 +1,6 @@
 Acesse https://producao.pje2.csjt.jus.br/primeirograu
-Preencha o campo "CPF / CNPJ" com o valor "90540310182"
-Preencha o campo "Senha" com o valor "pje123"
+Preencha o campo "CPF / CNPJ" com o valor "XXXX"
+Preencha o campo "Senha" com o valor "XXXX"
 Clique no botão "Entrar"
 Clique no botão "21ª Vara do Trabalho de Brasília - DF"
 Clique no botão "Painel Global"
@@ -16,3 +16,6 @@ Clique no botão "Visualizar todos os documentos favoritos."
 Preencha o campo "Pesquisar" com o valor "Inicial"
 Clique no link "Inicial"
 Clique no botão "Esconder Linha do Tempo"
+Aguarde 1 s.
+Aguarde 10 s pelo combo
+Aguarde 1000 s pela rota http://google.com

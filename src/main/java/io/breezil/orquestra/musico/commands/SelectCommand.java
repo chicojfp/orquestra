@@ -5,10 +5,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 public class SelectCommand extends Command {
-	private String optionValue;
 
 	public SelectCommand() {
-		super("");
+		super();
 	}
 	
 	@Override
@@ -18,7 +17,7 @@ public class SelectCommand extends Command {
 			WebElement el = seacher.findWebElement(driver, this.updateXPathFilter(xpath));
 			if (el != null) {
 				Select select = new Select(el);
-				select.selectByVisibleText(optionValue);
+				select.selectByVisibleText(this.value);
 			}
 		}
 

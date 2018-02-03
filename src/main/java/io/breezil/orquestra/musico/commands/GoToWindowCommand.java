@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 public class GoToWindowCommand extends Command {
 
 	public GoToWindowCommand() {
-		super("");
+		super();
 	}
 	
 	@Override

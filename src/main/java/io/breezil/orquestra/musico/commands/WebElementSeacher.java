@@ -40,8 +40,9 @@ public class WebElementSeacher {
 	}
 
 	public WebElementInfo findItem(String name) {
+		String nameToSearch = name.trim();
 		for (WebElementInfo webElementInfo : weInfos) {
-			if (webElementInfo.getName().equals(name)) {
+			if (webElementInfo.getName().equals(nameToSearch)) {
 				return webElementInfo;
 			}
 		}
@@ -56,7 +57,7 @@ public class WebElementSeacher {
 			we = findElement(driver, xpath);
 		} catch (NoSuchElementException | TimeoutException nse) {
 			try {
-				new WebDriverWait(driver, 3).until(ExpectedConditions.elementToBeClickable(By.xpath(xpathString)));
+				new WebDriverWait(driver, 1).until(ExpectedConditions.elementToBeClickable(By.xpath(xpathString)));
 				we = findElement(driver, xpath);
 			} catch (org.openqa.selenium.TimeoutException te) {
 				System.err.println("Não foi possível recuperar o elemento: " + xpathString);

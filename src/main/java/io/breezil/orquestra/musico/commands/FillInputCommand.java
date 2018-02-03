@@ -1,13 +1,14 @@
 package io.breezil.orquestra.musico.commands;
 
+import java.util.Objects;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class FillInputCommand extends Command {
-	private String value;
 
 	public FillInputCommand() {
-		super("");
+		super();
 	}
 
 	@Override
@@ -16,22 +17,17 @@ public class FillInputCommand extends Command {
 		for (String xpath : elInfo.getXpaths()) {
 			try {
 				WebElement el = seacher.findWebElement(driver, this.updateXPathFilter(xpath));
-				el.sendKeys(this.value);
-				return true;
+				if (!Objects.isNull(el)) {
+					el.clear();
+					System.out.println(el.getText());
+					return true;
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 
 		return false;
-	}
-
-	public String getValue() {
-		return value;
-	}
-
-	public void setValue(String value) {
-		this.value = value;
 	}
 
 }

@@ -9,7 +9,7 @@ public class FilterCommand extends Command {
 	private String order;
 	
 	public FilterCommand() {
-		super("");
+		super();
 	}
 
 	public Command getActualCommand() {
@@ -27,18 +27,22 @@ public class FilterCommand extends Command {
 	
 	@Override
 	public String updateXPathFilter(String xpath) {
+		String newXPath = xpath;
 		if (!Objects.isNull(order)) {
-			return String.format(xpath, "[" + order + "]");
+			newXPath = String.format(newXPath, "[" + order + "]");
 		}
-		return super.updateXPathFilter(xpath);
+		if (!Objects.isNull(value)) {
+			newXPath = String.format(newXPath, value);
+		}
+		return super.updateXPathFilter(newXPath);
 	}
 	
 	@Override
 	public boolean execute(WebDriver driver, WebElementSeacher seacher) {
 		WebElementInfo elInfo = seacher.findItem(this.getItem());
 		for (String xpath : elInfo.getXpaths()) {
-			String previusMod = Objects.toString(this.getxPathModification(), "");
-			this.actualCommand.setxPathModification(previusMod + updateXPathFilter(xpath)); 
+//			String previusMod = Objects.toString(this.getxPathModification(), "");
+			this.actualCommand.setxPathModification(updateXPathFilter(xpath)); 
 			this.actualCommand.execute(driver, seacher);
 		}
 

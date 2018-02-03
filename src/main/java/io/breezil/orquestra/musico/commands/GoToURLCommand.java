@@ -6,7 +6,7 @@ public class GoToURLCommand extends Command {
 	public String url;
 
 	public GoToURLCommand() {
-		super("");
+		super();
 	}
 	
 	@Override
