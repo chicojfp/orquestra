@@ -56,5 +56,9 @@ public class Command {
 	public void setValue(String value) {
 		this.value = value;
 	}
+	
+	public boolean hasDepencies() {
+		return false;
+	}
 
 }

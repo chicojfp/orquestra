@@ -31,4 +31,8 @@ public class ScriptStep {
 		return this.commmand;
 	}
 
+	public boolean hasDepencies() {
+		return this.script.startsWith("Execute");
+	}
+
 }

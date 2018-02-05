@@ -22,7 +22,7 @@ import com.google.gson.stream.JsonReader;
 public class WebElementSeacher {
 	private List<WebElementInfo> weInfos;
 	private final int FIRST_TIMEOUT = 1;
-	private final int SECOND_TIMEOUT = 3;
+	private final int SECOND_TIMEOUT = 1;
 	
 	public WebElementSeacher(String fileName) {
 		this.weInfos = this.loadWEInfos(fileName);

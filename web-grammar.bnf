@@ -4,7 +4,7 @@
 
 <exp> := <ClickCommand> | <GoToURLCommand> | <FillInputCommand> | 
 		 <FilterCommand> | <SwitchWindowCommand> | <SelectCommand> | <CopyCommand> |
-		 <GoToWindowCommand> | <WaitCommand>;
+		 <GoToWindowCommand> | <WaitCommand> | <RunCommand>;
 
 <ClickCommand> := <click> <nona> <item> " <name> ";
 <click> := Clique | clique;
@@ -37,6 +37,8 @@
 
 <WaitCommand> := Aguarde <tempo> s <condicao> ;
 <condicao> :=  . | pelo <item> | pela rota <url> ;
+
+<RunCommand> := Execute o " <name> " ;
 
 
 # This last declaration defines the non-terminal symbol num as any

@@ -1,7 +1,4 @@
-Acesse https://producao.pje2.csjt.jus.br/primeirograu
-Preencha o campo "CPF / CNPJ" com o valor "XXXX"
-Preencha o campo "Senha" com o valor "XXXX"
-Clique no botão "Entrar"
+Execute o "TC-011.test"
 Clique no botão "21ª Vara do Trabalho de Brasília - DF"
 Clique no botão "Painel Global"
 Clique no agrupador "Audiência"

@@ -17,7 +17,6 @@ public class FileSystemReader {
 			stream.forEach(e -> {
 				if (this.mustParseScriptLin(e)) {
 					info.addStep(e);
-//					System.out.println(e);
 				}
 			});
 			stream.close();
