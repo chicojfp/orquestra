@@ -1,4 +1,4 @@
-Execute o "TC-011.test"
+Execute o "./samples/TC-011.test"
 Clique no botão "21ª Vara do Trabalho de Brasília - DF"
 Clique no botão "Painel Global"
 Clique no agrupador "Audiência"

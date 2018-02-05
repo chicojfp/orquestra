@@ -1,4 +1,4 @@
-Execute o "TC-012.test"
+Execute o "./samples/TC-012.test"
 Clique no link "Processo"
 Clique no link "Novo processo"
 Selecione o item "AÇÃO TRABALHISTA - RITO ORDINÁRIO (985)" na combo "Classe judicial"

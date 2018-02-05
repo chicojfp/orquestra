@@ -1,4 +1,4 @@
-Execute o "TC-013.test"
+Execute o "./samples/TC-013.test"
 Clique no link "Processo"
 Clique no link "Não protocolado"
 No painel "Processos", Clique no imagem "Ver Detalhes"
