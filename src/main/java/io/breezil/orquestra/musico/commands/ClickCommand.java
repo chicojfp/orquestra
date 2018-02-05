@@ -23,7 +23,6 @@ public class ClickCommand extends Command {
 				} else {
 					el.click();
 				}
-				System.out.println("Click");
 				return true;
 			}
 		}

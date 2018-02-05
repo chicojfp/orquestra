@@ -21,6 +21,8 @@ import com.google.gson.stream.JsonReader;
 
 public class WebElementSeacher {
 	private List<WebElementInfo> weInfos;
+	private final int FIRST_TIMEOUT = 1;
+	private final int SECOND_TIMEOUT = 3;
 	
 	public WebElementSeacher(String fileName) {
 		this.weInfos = this.loadWEInfos(fileName);
@@ -50,14 +52,13 @@ public class WebElementSeacher {
 	}
 	
 	protected WebElement findWebElement(WebDriver driver, String xpath) {
-		String xpathString = xpath; //this.getxPathModification() + String.format(xpath, this.name);
-		System.out.println("Procurando elemento: " + xpathString);
+		String xpathString = xpath;
 		WebElement we = null;
 		try {
 			we = findElement(driver, xpath);
 		} catch (NoSuchElementException | TimeoutException nse) {
 			try {
-				new WebDriverWait(driver, 1).until(ExpectedConditions.elementToBeClickable(By.xpath(xpathString)));
+				new WebDriverWait(driver, SECOND_TIMEOUT).until(ExpectedConditions.elementToBeClickable(By.xpath(xpathString)));
 				we = findElement(driver, xpath);
 			} catch (org.openqa.selenium.TimeoutException te) {
 				System.err.println("Não foi possível recuperar o elemento: " + xpathString);
@@ -77,8 +78,7 @@ public class WebElementSeacher {
 	}
 	
 	private WebElement findElement(WebDriver driver, String xpath) {
-		return new WebDriverWait(driver, 1).until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
-//		return driver.findElement(By.xpath(String.format(xpath, this.name)));
+		return new WebDriverWait(driver, FIRST_TIMEOUT).until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
 	}
 
 }

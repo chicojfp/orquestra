@@ -6,10 +6,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
 import ca.uqac.lif.bullwinkle.BnfParser;
 import ca.uqac.lif.bullwinkle.BnfParser.InvalidGrammarException;
 import ca.uqac.lif.bullwinkle.BnfParser.ParseException;
 import ca.uqac.lif.bullwinkle.ParseNode;
+import io.breezil.orquestra.compositor.Script;
+import io.breezil.orquestra.compositor.ScriptStep;
 
 public class CommandParser {
 	private BnfParser parser;
@@ -23,18 +27,15 @@ public class CommandParser {
 	}
 	
 	
-	public List<Command> parseCommands(List<String> commands) {
-		List<Command> command = new ArrayList<>();
-		
-		commands.forEach(c -> command.add(this.parseCommand(c)));
-		
-		return command;
+	public Script parseCommands(Script info) {
+		info.getSteps().forEach(c -> this.parseCommand(c));
+		return info;
 	}
 	
-	private Command parseCommand(String commandScript) {
+	private Command parseCommand(ScriptStep step) {
 		Command command = null;
 		List<String> cmds = new ArrayList<>();
-		cmds.add(commandScript); //Arrays.asList(commandScript.split(","));
+		cmds.add(step.getScript()); //Arrays.asList(commandScript.split(","));
 		Collections.reverse(cmds);
 		for (String cmd : cmds) {
 			Command innerCmd = buildCommand(cmd.trim());
@@ -44,6 +45,7 @@ public class CommandParser {
 				command = innerCmd;
 			}
 		}
+		step.setCommand(command);
 		
 		return command;
 	}
@@ -58,7 +60,7 @@ public class CommandParser {
 				command = new CommandBuilder().build(node.getToken().substring(1, node.getToken().length() -1)).fillParameters(node);
 			}
 			if (node == null) {
-				System.out.println("==================================================" + commandScript);
+				throw new RuntimeErrorException(null, String.format("A linha '%s' não é válida para o script.", commandScript));
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();

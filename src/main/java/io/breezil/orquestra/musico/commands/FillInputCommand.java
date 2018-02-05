@@ -19,7 +19,7 @@ public class FillInputCommand extends Command {
 				WebElement el = seacher.findWebElement(driver, this.updateXPathFilter(xpath));
 				if (!Objects.isNull(el)) {
 					el.clear();
-					System.out.println(el.getText());
+					el.sendKeys(this.getValue());
 					return true;
 				}
 			} catch (Exception e) {
