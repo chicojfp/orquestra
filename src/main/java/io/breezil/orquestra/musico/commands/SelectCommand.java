@@ -18,6 +18,7 @@ public class SelectCommand extends Command {
 			if (el != null) {
 				Select select = new Select(el);
 				select.selectByVisibleText(this.value);
+				return true;
 			}
 		}
 

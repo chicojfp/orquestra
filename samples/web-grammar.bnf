@@ -35,7 +35,7 @@
 <GoToWindowCommand> := Ir para o popup " <descricao> ";
 
 
-<WaitCommand> := Aguarde <tempo> s <condicao> ;
+<WaitCommand> := Aguarde <time> s <condicao> ;
 <condicao> :=  . | pelo <item> | pela rota <url> ;
 
 <RunCommand> := Execute o " <name> " ;
@@ -45,7 +45,7 @@
 # sequence of symbols matching the regular expression enclosed between
 # the ^ and $ characters.
 <num> := ^\w+;
-<tempo> := ^\d+;
+<time> := ^\d+;
 <item> := ^[\w*ã.*\p{L}]+;
 <value> := ^[\d\-\w@!$%&*/:;<=>?@^_{}~$\s/:.\p{L})(]+;
 # "#$%&'()*+,-./:;<=>?@[\]^_`{|}~$#%ˆ

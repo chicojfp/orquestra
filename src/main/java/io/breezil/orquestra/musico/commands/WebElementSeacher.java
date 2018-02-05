@@ -52,6 +52,7 @@ public class WebElementSeacher {
 	}
 	
 	protected WebElement findWebElement(WebDriver driver, String xpath) {
+		System.out.println("Procurando elemento: " + xpath);
 		String xpathString = xpath;
 		WebElement we = null;
 		try {

@@ -43,7 +43,8 @@ public class FilterCommand extends Command {
 		for (String xpath : elInfo.getXpaths()) {
 //			String previusMod = Objects.toString(this.getxPathModification(), "");
 			this.actualCommand.setxPathModification(updateXPathFilter(xpath)); 
-			this.actualCommand.execute(driver, seacher);
+			boolean success = this.actualCommand.execute(driver, seacher);
+			if (success) return success;
 		}
 
 		return false;

@@ -16,7 +16,8 @@ public class ClickCommand extends Command {
 	public boolean execute(WebDriver driver, WebElementSeacher seacher) {
 		WebElementInfo elInfo = seacher.findItem(this.getItem());
 		for (String xpath : elInfo.getXpaths()) {
-			WebElement el = seacher.findWebElement(driver, this.updateXPathFilter(xpath));
+			WebElement el =  null;
+			el = seacher.findWebElement(driver, this.updateXPathFilter(xpath));
 			if (el != null) {
 				if (!Objects.isNull(el.getAttribute("onkeyup"))) {
 					el.sendKeys(Keys.ENTER);
