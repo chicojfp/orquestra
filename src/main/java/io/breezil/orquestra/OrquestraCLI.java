@@ -8,10 +8,13 @@ public class OrquestraCLI {
 			switch (args[i]) {
 			case "--gf":
 				option.setGrammarFile(args[i + 1]);
+				break;
 			case "--sf":
 				option.setScriptFile(args[i + 1]);
+				break;
 			case "--df":
 				option.setObjectDefinitionFile(args[i + 1]);
+				break;
 			}
 		}
 

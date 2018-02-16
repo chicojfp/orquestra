@@ -6,6 +6,8 @@ public class ScriptStep {
 	private String script;
 	private int order;
 	private Command commmand;
+	private boolean success = false;
+	private Script innerScript;
 
 	public String getScript() {
 		return script;
@@ -33,6 +35,14 @@ public class ScriptStep {
 
 	public boolean hasDepencies() {
 		return this.script.startsWith("Execute");
+	}
+
+	public void setSuccessExecution(boolean success) {
+		this.success  = success;
+	}
+
+	public void setInnerScript(Script newScript) {
+		this.innerScript = newScript;
 	}
 
 }

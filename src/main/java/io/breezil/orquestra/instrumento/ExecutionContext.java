@@ -15,6 +15,7 @@ public class ExecutionContext {
 	private Script mainScript;
 	private WebDriver driver;
 	private WebElementSeacher searcher;
+	private String errorImage;
 
 	public ExecutionContext() {
 		this.variables = new HashMap<>();
@@ -54,6 +55,10 @@ public class ExecutionContext {
 
 	public void setSearcher(WebElementSeacher searcher) {
 		this.searcher = searcher;
+	}
+
+	public void setErrorImage(String file) {
+		this.errorImage = file;
 	}
 	
 	

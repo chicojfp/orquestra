@@ -1,5 +1,6 @@
 package io.breezil.orquestra.musico.commands;
 
+import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -20,7 +21,8 @@ public class CommandParser {
 
 	public CommandParser(String grammarFile) {
 		try {
-			parser = new BnfParser(new FileInputStream(grammarFile));
+			BufferedInputStream in = new BufferedInputStream(new FileInputStream(grammarFile));
+			parser = new BnfParser(in);
 		} catch (InvalidGrammarException | FileNotFoundException e) {
 			e.printStackTrace();
 		}

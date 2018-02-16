@@ -1,7 +1,9 @@
 package io.breezil.orquestra.musico.commands;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,8 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
+import io.breezil.orquestra.exception.ParseException;
+
 public class WebElementSeacher {
 	private List<WebElementInfo> weInfos;
 	private final int FIRST_TIMEOUT = 1;
@@ -32,10 +36,10 @@ public class WebElementSeacher {
 	private List<WebElementInfo> loadWEInfos(String fileName) {
 		List<WebElementInfo> data = new ArrayList<>();
 		try {
-			JsonReader reader = new JsonReader(new FileReader(fileName));
+			JsonReader reader = new JsonReader(new InputStreamReader(new FileInputStream(fileName), "UTF-8"));  //new FileReader(fileName));
 			Type gsonType = new TypeToken<List<WebElementInfo>>(){}.getType();
 			data = new Gson().fromJson(reader, gsonType);
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		return data;
@@ -48,7 +52,7 @@ public class WebElementSeacher {
 				return webElementInfo;
 			}
 		}
-		return null;
+		throw new ParseException(String.format("Não há definição para elemento do tipo: '%s'", name));
 	}
 	
 	protected WebElement findWebElement(WebDriver driver, String xpath) {
