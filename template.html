@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p id="demo"></p>
+
+<style type="text/css">
+  
+  body {
+    font-family: sans-serif;
+  }
+
+  td, table, tr {
+    border: 1;
+    border-style: solid;
+    border-color: green;
+  }
+
+  .script-container {
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);;
+    padding: 10px;
+    margin: 10px;
+  }
+
+  .script-item {
+    margin: 5px;
+    margin-top: 10px;
+  }
+
+  .fail {
+    color: red;
+  }
+
+  .success {
+    color: green;
+  }
+
+
+</style>
+
+<script>
+
+  function readTextFile(file)
+{
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                var allText = rawFile.responseText;
+                alert(allText);
+            }
+        }
+    }
+    rawFile.send(null);
+}
+
+// readTextFile("file:///Users/chicojfp/Documents/dev/breezil/orquestra/output.json");
+
+var obj = JSON.parse('json_result_content');
+
+
+function createTable(obj) {
+  var txt = "<div class='script-container'>";
+
+  txt += "<h4> Script: " + obj.name + "</h4>";
+
+  txt += "<div>"
+    for (x in obj.scriptSteps) {
+      txt += "<div>";
+
+        if (obj.scriptSteps[x].success) {
+          txt += "<span class='script-item success'>  &#x2714; </span>";
+        } else {
+          txt += "<span class='script-item fail'>  &#x2718; </span>";
+        }
+        
+        txt += "<span class='script-item'>" + obj.scriptSteps[x].script;
+        txt += "</span>";
+
+
+        if (obj.scriptSteps[x].innerScript) {
+          //txt += "<tr><td colspan='2'>";
+          txt += createTable(obj.scriptSteps[x].innerScript);
+          //txt += "</td></tr>";
+        }
+
+      txt += "</div>";
+    }
+  txt += "</div> </div>";
+
+  return txt;
+}
+
+//var txt = "<h1> Script: " + obj.name + "</h1>";
+
+
+
+document.getElementById("demo").innerHTML = createTable(obj);
+
+</script>
+
+</body>
+</html>
