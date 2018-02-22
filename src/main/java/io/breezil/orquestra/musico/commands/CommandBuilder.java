@@ -35,7 +35,8 @@ public class CommandBuilder {
 		}
 		for (ParseNode child : node.getChildren()) {
 			String value = recursiveFillProperties(building, child);
-			definePropertieValue(building, node.getToken().substring(1, node.getToken().length() - 1), value);
+			String propertyName = node.getToken().substring(1, node.getToken().length() - 1);
+			definePropertieValue(building, propertyName, value);
 		}
 		return null;
 	}

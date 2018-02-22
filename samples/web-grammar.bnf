@@ -4,7 +4,7 @@
 
 <exp> := <ClickCommand> | <GoToURLCommand> | <FillInputCommand> | 
 		 <FilterCommand> | <SwitchWindowCommand> | <SelectCommand> | <CopyCommand> |
-		 <GoToWindowCommand> | <WaitCommand> | <RunCommand>;
+		 <GoToWindowCommand> | <WaitCommand> | <RunCommand> | <VerifyCommand>;
 
 <ClickCommand> := <click> <nona> <item> " <name> ";
 <click> := Clique | clique;
@@ -39,6 +39,11 @@
 <condicao> :=  . | pelo <item> | pela rota <url> ;
 
 <RunCommand> := Execute o " <name> " ;
+
+<VerifyCommand> := O <item> " <name> " deve ser <action>;
+<action> := <propIsDisplayed> | <propIsEnabled>;
+<propIsDisplayed> := visível;
+<propIsEnabled> := clicável;
 
 
 # This last declaration defines the non-terminal symbol num as any
