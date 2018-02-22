@@ -30,8 +30,8 @@ public class Command {
 		for (String xpath : elInfo.getXpaths()) {
 			WebElement el =  null;
 			el = seacher.findWebElement(driver, this.updateXPathFilter(xpath));
-			if (el != null) {
-				return doExecute(el) > 0;
+			if (el != null && doExecute(el) > 0) {
+				return true;
 			}
 		}
 		
