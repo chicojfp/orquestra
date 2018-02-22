@@ -3,6 +3,7 @@ package io.breezil.orquestra.instrumento;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 
@@ -20,6 +21,11 @@ public class ExecutionContext {
 	public ExecutionContext() {
 		this.variables = new HashMap<>();
 		this.scripts = new HashMap<>();
+	}
+	
+	public ExecutionContext(Script mainScript) {
+		super();
+		this.mainScript = mainScript;
 	}
 
 	public void addScript(Script script) {
@@ -47,6 +53,7 @@ public class ExecutionContext {
 
 	public void setDriver(WebDriver driver) {
 		this.driver = driver;
+		driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 	}
 
 	public WebElementSeacher getSearcher() {

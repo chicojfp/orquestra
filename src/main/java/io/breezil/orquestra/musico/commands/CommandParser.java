@@ -14,6 +14,7 @@ import ca.uqac.lif.bullwinkle.BnfParser.InvalidGrammarException;
 import ca.uqac.lif.bullwinkle.BnfParser.ParseException;
 import ca.uqac.lif.bullwinkle.ParseNode;
 import io.breezil.orquestra.compositor.Script;
+import io.breezil.orquestra.compositor.ScriptReader;
 import io.breezil.orquestra.compositor.ScriptStep;
 
 public class CommandParser {
@@ -28,6 +29,9 @@ public class CommandParser {
 		}
 	}
 	
+	public CommandParser(BnfParser parser) {
+		this.parser = parser;
+	}
 	
 	public Script parseCommands(Script info) {
 		info.getSteps().forEach(c -> this.parseCommand(c));
@@ -45,6 +49,11 @@ public class CommandParser {
 				((FilterCommand) innerCmd).setActualCommand(command);
 			} else {
 				command = innerCmd;
+			}
+			if (step.hasDepencies()) {
+				Script newScript = ScriptReader.getReader().readScript(command.getName());
+				new CommandParser(this.parser).parseCommands(newScript);
+				step.setInnerScript(newScript);
 			}
 		}
 		step.setCommand(command);

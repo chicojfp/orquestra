@@ -3,18 +3,25 @@ package io.breezil.orquestra.compositor;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Objects;
 import java.util.stream.Stream;
 
-public class FileSystemReader {
+public class FileSystemReader extends ScriptReaderBase {
+	private String basePath;
+	
+	public FileSystemReader(String basePath) {
+		this.basePath = basePath;
+	}
 
-	public Script readTestFile(String fileName) {
-		System.out.println("Reading script file: " + fileName);
+	@Override
+	public Script readScript(String scriptID) {
+		Path filePath = Paths.get(this.basePath, scriptID);
+		System.out.println("Reading script file: " + filePath.toString());
 		Script info = new Script();
-		info.setName(fileName);
+		info.setName(scriptID);
 		
-		try (Stream<String> stream = Files.lines(Paths.get(fileName), StandardCharsets.UTF_8)) {
+		try (Stream<String> stream = Files.lines(filePath, StandardCharsets.UTF_8)) {
 			stream.forEach(e -> {
 				if (this.mustParseScriptLin(e)) {
 					info.addStep(e);
@@ -26,11 +33,6 @@ public class FileSystemReader {
 		} finally { }
 		
 		return info;
-	}
-
-	private boolean mustParseScriptLin(String script) {
-		String scriptLine = Objects.toString(script, "").trim(); 
-		return !scriptLine.startsWith("#") && (scriptLine.length() > 0);
 	}
 
 }
