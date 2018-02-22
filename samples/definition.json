@@ -72,6 +72,14 @@
 	{
 		"name": "suggest",
 		"xpaths": ["//table[@class=\"rich-sb-int-decor-table\"]/tbody/tr"]
+	},
+	{
+		"name": "árvore",
+		"xpaths": ["//label[contains(.,\"%s\")]/ancestor::div[@class=\"propertyView\"]//div[contains(@class,\"rich-stglpanel-header\")]"]
+	},
+	{
+		"name": "nó",
+		"xpaths": ["//td[contains(@class,\"rich-tree-node-text\") and contains(.,\"%s\")]"]
 	}
 
 ]
