@@ -21,7 +21,7 @@ public class CommandRunner {
 				step.getCommand().execute(context.getDriver(), context.getSearcher());
 				step.setSuccessExecution(true);
 				if (step.hasDepencies()) {
-					Script innerScript = context.getScriptByName(step.getCommand().getName());
+					Script innerScript = step.getInnerScript();
 					CommandRunner.run(innerScript, context);
 				}
 			} catch (ExecutionException ee) {

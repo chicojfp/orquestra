@@ -45,4 +45,8 @@ public class ScriptStep {
 		this.innerScript = newScript;
 	}
 
+	public Script getInnerScript() {
+		return this.innerScript;
+	}
+
 }
