@@ -26,7 +26,7 @@ import io.breezil.orquestra.exception.ParseException;
 public class WebElementSeacher {
 	private List<WebElementInfo> weInfos;
 	private final int FIRST_TIMEOUT = 1;
-	private final int SECOND_TIMEOUT = 1;
+	private final int SECOND_TIMEOUT = 3;
 	
 	public WebElementSeacher(String fileName) {
 		this.weInfos = this.loadWEInfos(fileName);

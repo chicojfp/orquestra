@@ -12,7 +12,6 @@ public class CommandBuilder {
 	public CommandBuilder build(String commandName) {
 		building = buildConcreteClass(commandName);
 		
-		
 		return this;
 	}
 	

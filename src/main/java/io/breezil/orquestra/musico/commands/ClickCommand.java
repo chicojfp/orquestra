@@ -37,6 +37,7 @@ public class ClickCommand extends Command {
 //		}
 //		return ClickCommand.success;
 //	}
+
 	@Override
 	protected int doExecute(WebElement el) {
 		if (!Objects.isNull(el.getAttribute("onkeyup"))) {
