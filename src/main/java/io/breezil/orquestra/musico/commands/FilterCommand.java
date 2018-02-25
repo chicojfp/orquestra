@@ -27,14 +27,17 @@ public class FilterCommand extends Command {
 	
 	@Override
 	public String updateXPathFilter(String xpath) {
-		String newXPath = xpath;
+		String filter = "";
 		if (!Objects.isNull(order)) {
-			newXPath = String.format(newXPath, "[" + order + "]");
+			filter += order;
 		}
 		if (!Objects.isNull(value)) {
-			newXPath = String.format(newXPath, value);
+			if (filter.length() > 0) {
+				filter += " and ";
+			}
+			filter += "contains(.,\""+ value + "\")";
 		}
-		return super.updateXPathFilter(newXPath);
+		return super.updateXPathFilter(String.format(xpath, filter));
 	}
 	
 	@Override

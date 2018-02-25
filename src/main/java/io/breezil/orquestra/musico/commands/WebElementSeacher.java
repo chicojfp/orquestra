@@ -21,6 +21,7 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
+import io.breezil.orquestra.exception.OrquestraException;
 import io.breezil.orquestra.exception.ParseException;
 
 public class WebElementSeacher {
@@ -32,15 +33,18 @@ public class WebElementSeacher {
 		this.weInfos = this.loadWEInfos(fileName);
 	}
 	
+	public WebElementSeacher() {
+	}
+	
 	@SuppressWarnings("serial")
-	private List<WebElementInfo> loadWEInfos(String fileName) {
+	public List<WebElementInfo> loadWEInfos(String fileName) {
 		List<WebElementInfo> data = new ArrayList<>();
 		try {
 			JsonReader reader = new JsonReader(new InputStreamReader(new FileInputStream(fileName), "UTF-8"));  //new FileReader(fileName));
 			Type gsonType = new TypeToken<List<WebElementInfo>>(){}.getType();
 			data = new Gson().fromJson(reader, gsonType);
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
-			e.printStackTrace();
+			throw new OrquestraException("Não foi possível carregar o arquivo de definições.");
 		}
 		return data;
 	}
@@ -57,16 +61,16 @@ public class WebElementSeacher {
 	
 	protected WebElement findWebElement(WebDriver driver, String xpath) {
 		System.out.println("Procurando elemento: " + xpath);
-		String xpathString = xpath;
+//		String xpathString = xpath;
 		WebElement we = null;
 		try {
-			we = findElement(driver, xpath);
+			we = findElement(driver, FIRST_TIMEOUT, xpath);
 		} catch (NoSuchElementException | TimeoutException nse) {
 			try {
-				new WebDriverWait(driver, SECOND_TIMEOUT).until(ExpectedConditions.elementToBeClickable(By.xpath(xpathString)));
-				we = findElement(driver, xpath);
+//				new WebDriverWait(driver, SECOND_TIMEOUT).until(ExpectedConditions.elementToBeClickable(By.xpath(xpathString)));
+				we = findElement(driver, SECOND_TIMEOUT, xpath);
 			} catch (org.openqa.selenium.TimeoutException te) {
-				System.err.println("Não foi possível recuperar o elemento: " + xpathString);
+				System.err.println("Não foi possível recuperar o elemento: " + xpath);
 			}
 		}
 		if (!Objects.isNull(we)) {
@@ -82,8 +86,18 @@ public class WebElementSeacher {
 		return driver.findElement(By.id(id));
 	}
 	
-	private WebElement findElement(WebDriver driver, String xpath) {
-		return new WebDriverWait(driver, FIRST_TIMEOUT).until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+	protected WebElement findElement(WebDriver driver, long timeout, String xpath) {
+		return new WebDriverWait(driver, timeout).until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
 	}
+
+	public List<WebElementInfo> getWeInfos() {
+		return weInfos;
+	}
+
+	public void setWeInfos(List<WebElementInfo> weInfos) {
+		this.weInfos = weInfos;
+	}
+	
+	
 
 }

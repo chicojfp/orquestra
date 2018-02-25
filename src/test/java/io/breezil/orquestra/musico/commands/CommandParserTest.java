@@ -4,9 +4,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import io.breezil.orquestra.compositor.FileSystemReader;
 import io.breezil.orquestra.compositor.Script;
+import io.breezil.orquestra.compositor.ScriptReader;
 import io.breezil.orquestra.compositor.ScriptStep;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -75,6 +79,32 @@ public class CommandParserTest {
 		Assert.assertEquals("O primeiro filtro não foi aplicado corretamente.", "tabela", cmd.getItem());
 		Assert.assertEquals("O segundo filtro não foi aplicado corretamente.", "linha", innerFilterCmd.getItem());
 		validateClickCommand(name, item, actualCmd);
+	}
+
+	@Test
+	public void mustParseReferenteForAnotherScript() {
+		String innerScriptName = "./samples/TC-011.test";
+		Script script = new Script();
+		script.addStep(String.format("Execute o \"" + innerScriptName + "\""));
+		FileSystemReader reader = Mockito.mock(FileSystemReader.class);
+		ScriptReader.setReader(reader);
+		
+		Mockito.doReturn(new Script()).when(reader).readScript(innerScriptName);
+		
+		script = parser.parseCommands(script);
+		String foundScriptName = captureElementXPath(reader);
+		
+		Assert.assertEquals("O script não foi lido conforme corretamente.", innerScriptName, foundScriptName);
+		
+
+	}
+	
+	protected String captureElementXPath(FileSystemReader reader) {
+		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+		Mockito.verify(reader).readScript(captor.capture());
+
+		String value = captor.getValue();
+		return value;
 	}
 
 }

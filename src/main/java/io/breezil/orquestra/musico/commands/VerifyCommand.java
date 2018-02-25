@@ -28,10 +28,9 @@ public class VerifyCommand extends Command {
 	@Override
 	protected int doExecute(WebElement el) {
 		
-		
 		if (!Objects.isNull(this.propIsDisplayed) && !el.isDisplayed()) {
 			throw new ExecutionException(String.format("O %s \"%s\" não é \"%s\"", this.item, this.name, this.action));
-		} else if (!Objects.isNull(this.propIsDisplayed) && !el.isEnabled()) {
+		} else if (!Objects.isNull(this.propIsEnabled) && !el.isEnabled()) {
 			throw new ExecutionException(String.format("O %s \"%s\" não é \"%s\"", this.item, this.name, this.action));
 		}
 		
@@ -44,7 +43,6 @@ public class VerifyCommand extends Command {
 
 	public void setPropIsDisplayed(String propIsDisplayed) {
 		this.propIsDisplayed = propIsDisplayed;
-//			
 	}
 
 	public String getPropIsEnabled() {

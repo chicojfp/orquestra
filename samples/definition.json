@@ -31,11 +31,12 @@
 	},
 	{
 		"name": "linha",
-		"xpaths": ["//tbody//tr%s"]
+		"xpaths": ["//tbody//tr[%s]"]
 	},
 	{
 		"name": "ícone",
-		"xpaths": ["//a//*[@aria-label=\"%s\"]/parent::*"]
+		"xpaths": ["//button[contains(@aria-label,\"%s\")]",
+				   "//a//*[@aria-label=\"%s\"]/parent::*"]
 	},{
 		"name": "link",
 		"xpaths": ["//a[contains(.,\"%s\")]", 

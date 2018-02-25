@@ -18,7 +18,6 @@ public class CommandTest extends BaseTest {
 	public void configureEnviroment() {
 		this.driver = Mockito.mock(FirefoxDriver.class);
 		this.seacher = Mockito.mock(WebElementSeacher.class);
-
 	}
 
 	@Test

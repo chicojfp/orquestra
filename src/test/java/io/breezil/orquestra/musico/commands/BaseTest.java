@@ -26,12 +26,12 @@ public class BaseTest {
 		return value;
 	}
 
-	protected WebElement configureWebSearcher(String xpath, String expectedValue) {
+	protected WebElement configureWebSearcher(String xpath, String computedXPathValue) {
 		WebElementInfo webInfo = new WebElementInfo();
 		webInfo.setXpaths(new String[] { xpath });
 		Mockito.when(this.seacher.findItem(Matchers.anyString())).thenReturn(webInfo);
 		WebElement we = Mockito.mock(WebElement.class);
-		Mockito.when(this.seacher.findWebElement(this.driver, expectedValue)).thenReturn(we);
+		Mockito.when(this.seacher.findWebElement(this.driver, computedXPathValue)).thenReturn(we);
 		
 		return we;
 	}

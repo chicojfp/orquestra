@@ -13,6 +13,8 @@ public class FileSystemReader extends ScriptReaderBase {
 	public FileSystemReader(String basePath) {
 		this.basePath = basePath;
 	}
+	
+	public FileSystemReader() {	}
 
 	@Override
 	public Script readScript(String scriptID) {
