@@ -1,9 +1,0 @@
-Execute o "./samples/TC-013.test"
-Clique no link "Processo"
-Clique no link "Não protocolado"
-No painel "Processos", Clique no imagem "Ver Detalhes"
-
-Clique na aba "Informações da Justiça do Trabalho"
-Selecione o item "DISTRITO FEDERAL" na combo "UF"
-Preencha o campo "Município" com o valor "BRASILIA"
-No suggest, Clique no item "BRASILIA"

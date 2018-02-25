@@ -14,8 +14,10 @@
 <GoToURLCommand> := Acesse <url>;
 
 
-<FillInputCommand> := Preencha o <item> " <name> " com o valor <OrigemDado>;
+<FillInputCommand> := Preencha o <item> " <name> " com <fillOptions> ;
+<fillOptions> := o valor <OrigemDado> | <sendKey> ;
 <OrigemDado> := " <value> " | da variável " <variavel> " ;
+<sendKey> := Enter;
 
 
 <FilterCommand> := <nona> <item> <filterargs> <exp>;

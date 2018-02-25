@@ -1,14 +1,16 @@
 [
 	{
 		"name": "botão",
-		"xpaths": [	"//button[contains(.,\"%s\")]", 
+		"xpaths": [	"//input[@value='%s' and @type='submit']",
+					"//button[contains(.,\"%s\")]", 
 					"//button[@aria-label=\"%s\"]",
 					"//input[@type='button' and @value='%s']"
 				  ]
 	},
 	{
 		"name": "campo",
-		"xpaths": ["//input[@placeholder=\"%s\"]" ,
+		"xpaths": ["//input[@aria-label=\"%s\"]" ,
+				   "//input[contains(@placeholder, \"%s\")]" ,
 		           "//label[contains(text(),\"%s\")]"]
 	},
 	{
