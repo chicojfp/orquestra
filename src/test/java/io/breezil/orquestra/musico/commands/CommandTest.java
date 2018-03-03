@@ -9,6 +9,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import io.breezil.orquestra.exception.ExecutionException;
+import io.breezil.orquestra.instrumento.ExecutionContext;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CommandTest extends BaseTest {
@@ -17,7 +18,7 @@ public class CommandTest extends BaseTest {
 	@Before
 	public void configureEnviroment() {
 		this.driver = Mockito.mock(FirefoxDriver.class);
-		this.seacher = Mockito.mock(WebElementSeacher.class);
+		this.seacher = Mockito.mock(WebElementFinder.class);
 	}
 
 	@Test
@@ -29,7 +30,7 @@ public class CommandTest extends BaseTest {
 		cmd.setName("Login");
 		cmd.setItem("Button");
 		cmd.setValue("XXX");
-		cmd.execute(this.driver, this.seacher);
+		cmd.execute(new ExecutionContext(this.driver, this.seacher));
 
 		Assert.assertEquals("O botão foi não identificado corretamente", expectedValue, captureElementXPath());
 	}
@@ -43,7 +44,7 @@ public class CommandTest extends BaseTest {
 		ClickCommand cmd = new ClickCommand();
 		cmd.setxPathModification(tableName);
 		cmd.setName("Login");
-		cmd.execute(this.driver, this.seacher);
+		cmd.execute(new ExecutionContext(this.driver, this.seacher));
 
 		Assert.assertEquals("O botão foi não identificado corretamente", tableName + expectedValue,
 				captureElementXPath());
@@ -54,7 +55,7 @@ public class CommandTest extends BaseTest {
 		configureWebSearcher("//button[contains(.,\"%s\")]", null);
 
 		ClickCommand cmd = new ClickCommand();
-		cmd.execute(this.driver, this.seacher);
+		cmd.execute(new ExecutionContext(this.driver, this.seacher));
 
 	}
 

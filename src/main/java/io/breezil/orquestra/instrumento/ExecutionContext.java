@@ -8,14 +8,14 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 
 import io.breezil.orquestra.compositor.Script;
-import io.breezil.orquestra.musico.commands.WebElementSeacher;
+import io.breezil.orquestra.musico.commands.WebElementFinder;
 
 public class ExecutionContext {
 	private Map<String, String> variables;
 	private Map<String, Script> scripts;
 	private Script mainScript;
 	private WebDriver driver;
-	private WebElementSeacher searcher;
+	private WebElementFinder searcher;
 	private String errorImage;
 
 	public ExecutionContext() {
@@ -26,6 +26,11 @@ public class ExecutionContext {
 	public ExecutionContext(Script mainScript) {
 		super();
 		this.mainScript = mainScript;
+	}
+
+	public ExecutionContext(WebDriver driver, WebElementFinder seacher) {
+		this.driver = driver;
+		this.searcher = seacher;
 	}
 
 	public void addScript(Script script) {
@@ -56,18 +61,20 @@ public class ExecutionContext {
 		driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
 	}
 
-	public WebElementSeacher getSearcher() {
+	public WebElementFinder getSearcher() {
 		return searcher;
 	}
 
-	public void setSearcher(WebElementSeacher searcher) {
+	public void setSearcher(WebElementFinder searcher) {
 		this.searcher = searcher;
 	}
 
 	public void setErrorImage(String file) {
 		this.errorImage = file;
 	}
-	
-	
 
+	public String getErrorImage() {
+		return errorImage;
+	}
+	
 }

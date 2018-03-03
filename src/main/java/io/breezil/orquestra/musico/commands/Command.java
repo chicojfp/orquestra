@@ -2,10 +2,10 @@ package io.breezil.orquestra.musico.commands;
 
 import java.util.Objects;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import io.breezil.orquestra.exception.ExecutionException;
+import io.breezil.orquestra.instrumento.ExecutionContext;
 
 public class Command {
 	protected String name;
@@ -24,12 +24,12 @@ public class Command {
 		this.xPathModification = xPathModification;
 	}
 
-	public boolean execute(WebDriver driver, WebElementSeacher seacher) {
-		WebElementInfo elInfo = seacher.findItem(this.getItem());
+	public boolean execute(ExecutionContext context) {
+		WebElementDefinition elInfo = context.getSearcher().findObjectDefinition(this.getItem());
 		
 		for (String xpath : elInfo.getXpaths()) {
 			WebElement el =  null;
-			el = seacher.findWebElement(driver, this.updateXPathFilter(xpath));
+			el = context.getSearcher().findWebElement(this.updateXPathFilter(xpath));
 			if (el != null && doExecute(el) > 0) {
 				return true;
 			}

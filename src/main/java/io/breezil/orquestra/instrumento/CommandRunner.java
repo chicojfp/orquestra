@@ -18,12 +18,8 @@ public class CommandRunner {
 		for (ScriptStep step : script.getSteps()) {
 			System.out.println("Executando o script: " + step.getScript());
 			try {
-				step.getCommand().execute(context.getDriver(), context.getSearcher());
-				step.setSuccessExecution(true);
-				if (step.hasDepencies()) {
-					Script innerScript = step.getInnerScript();
-					CommandRunner.run(innerScript, context);
-				}
+				boolean success = step.getCommand().execute(context);
+				step.setSuccessExecution(success);
 			} catch (ExecutionException ee) {
 				String file = saveScreenShot(context);
 				context.setErrorImage(file);

@@ -4,7 +4,7 @@
 
 <exp> := <ClickCommand> | <GoToURLCommand> | <FillInputCommand> | 
 		 <FilterCommand> | <SwitchWindowCommand> | <SelectCommand> | <CopyCommand> |
-		 <GoToWindowCommand> | <WaitCommand> | <RunCommand> | <VerifyCommand>;
+		 <GoToWindowCommand> | <WaitCommand> | <RunCommand> | <VerifyCommand> | <ForEachCommand> ;
 
 <ClickCommand> := <click> <nona> <item> " <name> ";
 <click> := Clique | clique;
@@ -31,7 +31,7 @@
 <article> := o | a | O | A ;
 
 
-<CopyCommand> := Salve o valor do <item> " <name> " como " <variavel> " ;
+<CopyCommand> := Salve o valor do <item> " <name> " como " <variableName> " ;
 
 
 <GoToWindowCommand> := Ir para o popup " <descricao> ";
@@ -47,6 +47,7 @@
 <propIsDisplayed> := visível;
 <propIsEnabled> := clicável;
 
+<ForEachCommand> := Para cada <item> execute o comando: " <name> " ;
 
 # This last declaration defines the non-terminal symbol num as any
 # sequence of symbols matching the regular expression enclosed between
@@ -56,9 +57,9 @@
 <item> := ^[\w*ã.*\p{L}]+;
 <value> := ^[\d\-\w@!$%&*/:;<=>?@^_{}~$\s/:.\p{L})(]+;
 # "#$%&'()*+,-./:;<=>?@[\]^_`{|}~$#%ˆ
-<name> := ^[-\w* *:*/*.*ª\p{L})(\-$ ]+;
+<name> := ^[-\w* *:*/*.*ª\p{L})(\-$]*;
 <combo> := ^[\w*\s*]+;
 <descricao> := ^[\-\w\s/:.\p{L})(]+;
 <order> := ^\w+;
 <url> := ^[\w:/.]+;
-<variavel> := ^[\w:/.]+;
+<variableName> := ^[\w:/.]+;

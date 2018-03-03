@@ -2,7 +2,7 @@ package io.breezil.orquestra.musico.commands;
 
 import java.util.Set;
 
-import org.openqa.selenium.WebDriver;
+import io.breezil.orquestra.instrumento.ExecutionContext;
 
 public class GoToWindowCommand extends Command {
 
@@ -11,16 +11,16 @@ public class GoToWindowCommand extends Command {
 	}
 	
 	@Override
-	public boolean execute(WebDriver driver, WebElementSeacher seacher) {
+	public boolean execute(ExecutionContext context) {
 		
-		Set<String> handles = driver.getWindowHandles();
+		Set<String> handles = context.getDriver().getWindowHandles();
 		
 		for (String handle : handles) {
-			if (handle.equals(driver.getWindowHandle())) {
+			if (handle.equals(context.getDriver().getWindowHandle())) {
 				continue;
 			}
 			
-			driver.switchTo().window(handle);
+			context.getDriver().switchTo().window(handle);
 			break;
 		}
 		

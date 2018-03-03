@@ -2,7 +2,7 @@ package io.breezil.orquestra.musico.commands;
 
 import java.io.Serializable;
 
-public class WebElementInfo implements Serializable {
+public class WebElementDefinition implements Serializable {
 	private static final long serialVersionUID = -5860195197317250364L;
 	
 	private String name;

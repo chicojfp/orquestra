@@ -1,8 +1,9 @@
 package io.breezil.orquestra.musico.commands;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+
+import io.breezil.orquestra.instrumento.ExecutionContext;
 
 public class SelectCommand extends Command {
 
@@ -11,10 +12,10 @@ public class SelectCommand extends Command {
 	}
 	
 	@Override
-	public boolean execute(WebDriver driver, WebElementSeacher seacher) {
-		WebElementInfo elInfo = seacher.findItem(this.getItem());
+	public boolean execute(ExecutionContext context) {
+		WebElementDefinition elInfo = context.getSearcher().findObjectDefinition(this.getItem());
 		for (String xpath : elInfo.getXpaths()) {
-			WebElement el = seacher.findWebElement(driver, this.updateXPathFilter(xpath));
+			WebElement el = context.getSearcher().findWebElement(this.updateXPathFilter(xpath));
 			if (el != null) {
 				Select select = new Select(el);
 				select.selectByVisibleText(this.value);

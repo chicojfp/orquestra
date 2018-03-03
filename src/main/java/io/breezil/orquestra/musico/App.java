@@ -14,7 +14,7 @@ import io.breezil.orquestra.critico.OrquestraReporter;
 import io.breezil.orquestra.instrumento.CommandRunner;
 import io.breezil.orquestra.instrumento.ExecutionContext;
 import io.breezil.orquestra.musico.commands.CommandParser;
-import io.breezil.orquestra.musico.commands.WebElementSeacher;
+import io.breezil.orquestra.musico.commands.WebElementFinder;
 
 /**
  * Hello world!
@@ -46,7 +46,7 @@ public class App {
 		
 		ExecutionContext exec = new ExecutionContext(script);
 		exec.setDriver(driver);
-		exec.setSearcher(new WebElementSeacher(cliArgs.getObjectDefinitionFile()));
+		exec.setSearcher(new WebElementFinder(cliArgs.getObjectDefinitionFile()).setSearcherContext(driver));
 
 		
 		// executor

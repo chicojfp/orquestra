@@ -40,6 +40,14 @@ public class ScriptStep {
 	public void setSuccessExecution(boolean success) {
 		this.success  = success;
 	}
+	
+	public boolean isSuccess() {
+		return success;
+	}
+
+	public void setSuccess(boolean success) {
+		this.success = success;
+	}
 
 	public void setInnerScript(Script newScript) {
 		this.innerScript = newScript;

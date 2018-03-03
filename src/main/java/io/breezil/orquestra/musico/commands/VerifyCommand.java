@@ -2,10 +2,10 @@ package io.breezil.orquestra.musico.commands;
 
 import java.util.Objects;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import io.breezil.orquestra.exception.ExecutionException;
+import io.breezil.orquestra.instrumento.ExecutionContext;
 
 public class VerifyCommand extends Command {
 	private String action;
@@ -21,8 +21,8 @@ public class VerifyCommand extends Command {
 	}
 
 	@Override
-	public boolean execute(WebDriver driver, WebElementSeacher seacher) {
-		return super.execute(driver, seacher);
+	public boolean execute(ExecutionContext context) {
+		return super.execute(context);
 	}
 
 	@Override

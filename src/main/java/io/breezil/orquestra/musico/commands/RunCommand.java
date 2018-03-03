@@ -1,11 +1,20 @@
 package io.breezil.orquestra.musico.commands;
 
-import org.openqa.selenium.WebDriver;
+import io.breezil.orquestra.instrumento.CommandRunner;
+import io.breezil.orquestra.instrumento.ExecutionContext;
 
-public class RunCommand extends Command {
+public class RunCommand extends ComplexCommand {
 	
 	@Override
-	public boolean execute(WebDriver driver, WebElementSeacher seacher) {
+	public boolean execute(ExecutionContext context) {
+		
+		CommandRunner.run(this.getInnerScript(), context);
+		
+		return true;
+	}
+	
+	@Override
+	public boolean hasDepencies() {
 		return true;
 	}
 

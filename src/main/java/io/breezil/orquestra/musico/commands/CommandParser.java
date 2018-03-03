@@ -50,10 +50,10 @@ public class CommandParser {
 			} else {
 				command = innerCmd;
 			}
-			if (step.hasDepencies()) {
+			if (command.hasDepencies()) {
 				Script newScript = ScriptReader.getReader().readScript(command.getName());
 				new CommandParser(this.parser).parseCommands(newScript);
-				step.setInnerScript(newScript);
+				((ComplexCommand)command).setInnerScript(newScript);
 			}
 		}
 		step.setCommand(command);

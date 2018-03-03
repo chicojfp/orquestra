@@ -9,6 +9,8 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.openqa.selenium.WebElement;
 
+import io.breezil.orquestra.instrumento.ExecutionContext;
+
 @RunWith(MockitoJUnitRunner.class)
 public class ClickCommandTest extends BaseTest {
 
@@ -30,7 +32,7 @@ public class ClickCommandTest extends BaseTest {
 
 		ClickCommand cmd = new ClickCommand();
 		cmd.setName("Login");
-		cmd.execute(this.driver, this.seacher);
+		cmd.execute(new ExecutionContext(this.driver, this.seacher));
 
 		String value = captureElementXPath();
 		Assert.assertEquals("O botão foi não identificado corretamente", value, "//button[contains(.,\"Login\")]");

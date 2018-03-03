@@ -5,12 +5,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import io.breezil.orquestra.instrumento.ExecutionContext;
+
 @RunWith(MockitoJUnitRunner.class)
 public class FilterCommandTest extends BaseTest {
 	
 	@Test
 	public void mustUpdateActualCommandXPathWithOrder() {
-		String expectedValue = "//table//tr[contains(.,\"123ABC\")]";
 		FilterCommand filter = new FilterCommand();
 		filter.setOrder("1");
 		SelectCommand select = configureDefaultFilter(filter, "//table//tr[1]");
@@ -47,7 +48,7 @@ public class FilterCommandTest extends BaseTest {
 		
 		configureWebSearcher("//table//tr[%s]", expectedFilter);
 		
-		filter.execute(this.driver, this.seacher);
+		filter.execute(new ExecutionContext(this.driver, this.seacher));
 		return select;
 	}
 

@@ -2,22 +2,13 @@ package io.breezil.orquestra.musico.commands;
 
 import java.util.Objects;
 
-import org.openqa.selenium.WebDriver;
+import io.breezil.orquestra.instrumento.ExecutionContext;
 
-public class FilterCommand extends Command {
-	private Command actualCommand;
+public class FilterCommand extends ComplexCommand {
 	private String order;
 	
 	public FilterCommand() {
 		super();
-	}
-
-	public Command getActualCommand() {
-		return actualCommand;
-	}
-
-	public void setActualCommand(Command actualCommand) {
-		this.actualCommand = actualCommand;
 	}
 	
 	@Override
@@ -41,12 +32,12 @@ public class FilterCommand extends Command {
 	}
 	
 	@Override
-	public boolean execute(WebDriver driver, WebElementSeacher seacher) {
-		WebElementInfo elInfo = seacher.findItem(this.getItem());
+	public boolean execute(ExecutionContext context) {
+		WebElementDefinition elInfo = context.getSearcher().findObjectDefinition(this.getItem());
 		for (String xpath : elInfo.getXpaths()) {
 //			String previusMod = Objects.toString(this.getxPathModification(), "");
-			this.actualCommand.setxPathModification(updateXPathFilter(xpath)); 
-			boolean success = this.actualCommand.execute(driver, seacher);
+			this.getActualCommand().setxPathModification(updateXPathFilter(xpath)); 
+			boolean success = this.getActualCommand().execute(context);
 			if (success) return success;
 		}
 

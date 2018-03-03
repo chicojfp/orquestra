@@ -8,6 +8,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.openqa.selenium.WebElement;
 
 import io.breezil.orquestra.exception.ExecutionException;
+import io.breezil.orquestra.instrumento.ExecutionContext;
 
 @RunWith(MockitoJUnitRunner.class)
 public class VerifyCommandTest extends BaseTest {
@@ -20,7 +21,7 @@ public class VerifyCommandTest extends BaseTest {
 		VerifyCommand cmd = createVerifyCommand();
 		cmd.setPropIsDisplayed("displayed");
 		
-		boolean isOk = cmd.execute(this.driver, this.seacher);
+		boolean isOk = cmd.execute(new ExecutionContext(this.driver, this.seacher));
 		
 		Assert.assertTrue("Um elemento não visível foi detectado como visível", isOk);
 	}
@@ -33,7 +34,7 @@ public class VerifyCommandTest extends BaseTest {
 		VerifyCommand cmd = createVerifyCommand();
 		cmd.setPropIsEnabled("enabled");
 		
-		boolean isOk = cmd.execute(this.driver, this.seacher);
+		boolean isOk = cmd.execute(new ExecutionContext(this.driver, this.seacher));
 		
 	}
 	
@@ -45,7 +46,7 @@ public class VerifyCommandTest extends BaseTest {
 		VerifyCommand cmd = createVerifyCommand();
 		cmd.setPropIsEnabled("enabled");
 		
-		boolean isOk = cmd.execute(this.driver, this.seacher);
+		boolean isOk = cmd.execute(new ExecutionContext(this.driver, this.seacher));
 		
 		Assert.assertTrue("O elemento desabilitado foi detectado como habilitado.", isOk);
 	}
@@ -58,7 +59,7 @@ public class VerifyCommandTest extends BaseTest {
 		VerifyCommand cmd = createVerifyCommand();
 		cmd.setPropIsDisplayed("displayed");
 		
-		boolean isOk = cmd.execute(this.driver, this.seacher);
+		boolean isOk = cmd.execute(new ExecutionContext(this.driver, this.seacher));
 		
 		Assert.assertTrue("O elemento invisível foi detectado como visível.", isOk);
 	}
