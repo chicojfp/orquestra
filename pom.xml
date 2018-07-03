@@ -36,7 +36,60 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.7</version>
+				<version>3.0.2</version>
+				<executions>
+		          <execution>
+		            <id>copy-samples</id>
+		            <!-- here the phase you need -->
+		            <phase>package</phase>
+		            <goals>
+		              <goal>copy-resources</goal>
+		            </goals>
+		            <configuration>
+		              <outputDirectory>${basedir}/target/samples</outputDirectory>
+		              <resources>          
+		                <resource>
+		                  <directory>./samples</directory>
+		                  <filtering>true</filtering>
+		                </resource>
+		              </resources>              
+		            </configuration>            
+		          </execution>
+		          <execution>
+		            <id>copy-drivers</id>
+		            <!-- here the phase you need -->
+		            <phase>package</phase>
+		            <goals>
+		              <goal>copy-resources</goal>
+		            </goals>
+		            <configuration>
+		              <outputDirectory>${basedir}/target/driver</outputDirectory>
+		              <resources>          
+		                <resource>
+		                  <directory>resources/drivers</directory>
+		                  <filtering>true</filtering>
+		                </resource>
+		              </resources>              
+		            </configuration>            
+		          </execution>
+		          <execution>
+		            <id>copy-templates</id>
+		            <!-- here the phase you need -->
+		            <phase>package</phase>
+		            <goals>
+		              <goal>copy-resources</goal>
+		            </goals>
+		            <configuration>
+		              <outputDirectory>${basedir}/target/templates</outputDirectory>
+		              <resources>          
+		                <resource>
+		                  <directory>resources/templates</directory>
+		                  <filtering>true</filtering>
+		                </resource>
+		              </resources>              
+		            </configuration>            
+		          </execution>
+		        </executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-dependency-plugin</artifactId>

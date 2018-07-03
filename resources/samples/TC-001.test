@@ -1,4 +1,4 @@
-Execute o "./samples/TC-011.test"
+Execute o "./resources/samples/TC-011.test"
 Clique no link "Users"
 Clique no link "chicojfp"
 Clique no link "Repositories"

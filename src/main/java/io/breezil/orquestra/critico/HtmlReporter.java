@@ -22,7 +22,7 @@ public class HtmlReporter implements OrquestraBaseReporter {
 			try {
 				BufferedWriter writer = Files.newBufferedWriter(Paths.get(fileName));
 				//read file into stream, try-with-resources
-				try (Stream<String> stream = Files.lines(Paths.get("template.html"))) {
+				try (Stream<String> stream = Files.lines(Paths.get("resources/templates/template.html"))) {
 					
 					stream.forEach( (line) -> {
 						try {

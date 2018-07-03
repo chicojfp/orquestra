@@ -31,12 +31,14 @@ public class ForEachCommand extends ComplexCommand {
 		for (String xpath : elInfo.getXpaths()) {
 			String searchRestriction = this.updateXPathFilter(xpath);
 			List<WebElement> els = context.getSearcher().findWebElements(searchRestriction);
-			for (int order = 1; order <= els.size(); order++) {
-				String restrictionPath = String.format("(%s)[%s]/parent::*", searchRestriction, order);
-				context.getSearcher().setSearchRestriction(restrictionPath);
-				CommandRunner.run(this.getInnerScript(), context);
+			if (!Objects.isNull(els)) {
+				for (int order = 1; order <= els.size(); order++) {
+					String restrictionPath = String.format("(%s)[%s]/parent::*", searchRestriction, order);
+					context.getSearcher().setSearchRestriction(restrictionPath);
+					CommandRunner.run(this.getInnerScript(), context);
+				}
+				context.getSearcher().setSearchRestriction(null);
 			}
-			context.getSearcher().setSearchRestriction(null);
 			return true;
 		}
 		throw new ExecutionException(String.format("Não foi possível recuperar o %s \"%s\"", this.item, this.name));

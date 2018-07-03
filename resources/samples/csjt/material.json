@@ -1,0 +1,92 @@
+[
+	{
+		"name": "botão",
+		"xpaths": [	"//button[contains(.,\"%s\")]", 
+					"//button[@aria-label=\"%s\"]",
+					"//input[@value='%s' and (@type='submit' or @type='button')]"
+				  ]
+	},
+	{
+		"name": "campo",
+		"xpaths": [ "//input[contains(@placeholder, \"%s\")]" ,
+					"//input[@aria-label=\"%s\"]" ,
+		           	"//label[contains(text(),\"%s\")]"]
+	},
+	{
+		"name": "agrupador",
+		"xpaths": ["//pje-painel-item[contains(.,\"%s\")]",
+				   "//mat-card[contains(.,\"%s\")]"]
+	},
+	{
+		"name": "combo",
+		"xpaths": ["//mat-select[@placeholder=\"%s\"]",
+		           "//label[contains(.,\"%s\")]" 
+		          ]
+	},
+	{
+		"name": "opção",
+		"xpaths": ["//mat-option[contains(.,\"%s\")]"]
+	},
+	{
+		"name": "tabela",
+		"xpaths": ["//table"]
+	},
+	{
+		"name": "linha",
+		"xpaths": ["//tbody//tr[%s]"]
+	},
+	{
+		"name": "ícone",
+		"xpaths": ["//button[contains(@aria-label,\"%s\")]",
+				   "//a//*[@aria-label=\"%s\"]/parent::*"]
+	},{
+		"name": "link",
+		"xpaths": ["//a[contains(.,\"%s\")]", 
+	               "//td[@class=\"rich-toolbar-item\" and contains(.,\"%s\")]"]
+	},
+	{
+		"name": "checkbox",
+		"xpaths": ["//mat-checkbox[contains(@aria-label,\"%s\")]"]
+	},
+	{
+		"name": "quadro",
+		"xpaths": ["//div/div[contains(.,\"%s\") and contains(@class,'rich-panel-header')]/parent::*"]
+	},
+	{
+		"name": "rótulo",
+		"xpaths": ["//label[contains(.,\"%s\")"]
+	},
+	{
+		"name": "imagem",
+		"xpaths": ["//img[contains(@title,\"%s\")]/parent::*"]
+	},
+	{
+		"name": "aba",
+		"xpaths": ["//td[contains(@class,\"rich-tab-header\") and contains(text(),\"%s\")]/ancestor::table[@role=\"tab\"]"]
+	},
+	{
+		"name": "painel",
+		"xpaths": ["//div[contains(@class,\"rich-panel\") and contains(text(),\"%s\")]/parent::*"]
+	},
+	{
+		"name": "item",
+		"xpaths": ["//*[contains(text(), \"%s\")]"]
+	},
+	{
+		"name": "suggest",
+		"xpaths": ["//table[@class=\"rich-sb-int-decor-table\"]/tbody/tr"]
+	},
+	{
+		"name": "árvore",
+		"xpaths": ["//label[contains(.,\"%s\")]/ancestor::div[@class=\"propertyView\"]//div[contains(@class,\"rich-stglpanel-header\")]"]
+	},
+	{
+		"name": "nó",
+		"xpaths": ["//td[contains(@class,\"rich-tree-node-text\") and contains(.,\"%s\")]"]
+	},
+	{
+		"name": "OJ",
+		"xpaths": ["//button[contains(@class,\"chip-oj\")]"]
+	}
+
+]
