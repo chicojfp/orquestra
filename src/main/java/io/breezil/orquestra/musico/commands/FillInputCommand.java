@@ -5,8 +5,12 @@ import java.util.Objects;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
+import io.breezil.orquestra.instrumento.ExecutionContext;
+
 public class FillInputCommand extends Command {
 	private String sendKey;
+	private String variavel;
+	private String key;
 
 	public FillInputCommand() {
 		super();
@@ -35,13 +39,29 @@ public class FillInputCommand extends Command {
 
 	@Override
 	protected int doExecute(WebElement el) {
-		if (Objects.isNull(this.sendKey)) {
+		if (!Objects.isNull(this.variavel)) {
+			el.clear();
+			String keys[] = this.parseVariable(this.variavel);
+			SetVarCommand var = ExecutionContext.getInstance().getVariableByName(keys[0]);
+			String value = var.getValue();
+			if (keys.length > 1) {
+				value = var.getKeyValue(keys[1]);
+			} else {
+				value = var.getKeyValue(key);
+			}
+			
+			el.sendKeys(value);
+		} else if (Objects.isNull(this.sendKey)) {
 			el.clear();
 			el.sendKeys(this.getValue());
 		} else {
 			el.sendKeys(Keys.ENTER);
 		}
 		return 1;
+	}
+	
+	private String[] parseVariable(String variable) {
+		return variable.split("\\.");
 	}
 
 	public String getSendKey() {
@@ -50,6 +70,22 @@ public class FillInputCommand extends Command {
 
 	public void setSendKey(String sendKey) {
 		this.sendKey = sendKey;
+	}
+
+	public String getVariavel() {
+		return variavel;
+	}
+
+	public void setVariavel(String variavel) {
+		this.variavel = variavel;
+	}
+	
+	public String getKey() {
+		return key;
+	}
+
+	public void setKey(String key) {
+		this.key = key;
 	}
 
 }

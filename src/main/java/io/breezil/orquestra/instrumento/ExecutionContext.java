@@ -8,10 +8,11 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 
 import io.breezil.orquestra.compositor.Script;
+import io.breezil.orquestra.musico.commands.SetVarCommand;
 import io.breezil.orquestra.musico.commands.WebElementFinder;
 
 public class ExecutionContext {
-	private Map<String, String> variables;
+	private Map<String, SetVarCommand> variables;
 	private Map<String, Script> scripts;
 	private Script mainScript;
 	private WebDriver driver;
@@ -21,16 +22,25 @@ public class ExecutionContext {
 	public ExecutionContext() {
 		this.variables = new HashMap<>();
 		this.scripts = new HashMap<>();
+		instance = this;
 	}
 	
 	public ExecutionContext(Script mainScript) {
-		super();
+		this();
 		this.mainScript = mainScript;
+		instance = this;
 	}
 
 	public ExecutionContext(WebDriver driver, WebElementFinder seacher) {
+		this();
 		this.driver = driver;
 		this.searcher = seacher;
+		instance = this;
+	}
+	
+	protected static ExecutionContext instance;
+	public static ExecutionContext getInstance() {
+		return instance;
 	}
 
 	public void addScript(Script script) {
@@ -44,7 +54,7 @@ public class ExecutionContext {
 		return this.scripts.get(name);
 	}
 
-	public String getVariableByName(String name) {
+	public SetVarCommand getVariableByName(String name) {
 		return this.variables.get(name);
 	}
 
@@ -75,6 +85,10 @@ public class ExecutionContext {
 
 	public String getErrorImage() {
 		return errorImage;
+	}
+	
+	public SetVarCommand setVariableByName(String name, SetVarCommand value) {
+		return this.variables.put(name, value);
 	}
 	
 }
