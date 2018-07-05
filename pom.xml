@@ -46,10 +46,10 @@
 		              <goal>copy-resources</goal>
 		            </goals>
 		            <configuration>
-		              <outputDirectory>${basedir}/target/samples</outputDirectory>
+		              <outputDirectory>${basedir}/target/resources/samples</outputDirectory>
 		              <resources>          
 		                <resource>
-		                  <directory>./samples</directory>
+		                  <directory>resources/samples</directory>
 		                  <filtering>true</filtering>
 		                </resource>
 		              </resources>              
@@ -63,7 +63,7 @@
 		              <goal>copy-resources</goal>
 		            </goals>
 		            <configuration>
-		              <outputDirectory>${basedir}/target/driver</outputDirectory>
+		              <outputDirectory>${basedir}/target/resources/driver</outputDirectory>
 		              <resources>          
 		                <resource>
 		                  <directory>resources/drivers</directory>
@@ -80,7 +80,7 @@
 		              <goal>copy-resources</goal>
 		            </goals>
 		            <configuration>
-		              <outputDirectory>${basedir}/target/templates</outputDirectory>
+		              <outputDirectory>${basedir}/target/resources/templates</outputDirectory>
 		              <resources>          
 		                <resource>
 		                  <directory>resources/templates</directory>
