@@ -8,3 +8,6 @@
 /asfasfasd.html
 /output.json
 *.png
+.classpath
+.project
+.settings
