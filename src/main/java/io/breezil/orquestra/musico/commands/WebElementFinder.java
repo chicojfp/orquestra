@@ -33,6 +33,8 @@ public class WebElementFinder {
 	private final int SECOND_TIMEOUT = 3;
 	private String searchRestriction;
 	
+	private WebElement we = null;
+	
 	public WebElementFinder(String fileName) {
 		this.weInfos = this.loadWEInfos(fileName);
 	}
@@ -65,14 +67,13 @@ public class WebElementFinder {
 	
 	protected WebElement findWebElement(String xpath) {
 		xpath = Strings.nullToEmpty(this.searchRestriction) + xpath;
-		System.out.println("Procurando elemento: " + xpath);
-		WebElement we = null;
+//		WebElement we = null;
 		try {
 			we = findElement(searcher, FIRST_TIMEOUT, xpath);
 		} catch (NoSuchElementException | TimeoutException nse) {
 			try {
 				we = findElement(searcher, SECOND_TIMEOUT, xpath);
-			} catch (org.openqa.selenium.TimeoutException te) {
+			} catch (org.openqa.selenium.TimeoutException | org.openqa.selenium.NoSuchElementException te) {
 				System.err.println("Não foi possível recuperar o elemento: " + xpath);
 			}
 		}
@@ -115,6 +116,11 @@ public class WebElementFinder {
 	}
 	
 	protected WebElement findElement(SearchContext driver, long timeout, String xpath) {
+//		try {
+//			Thread.sleep(timeout * 10);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 		if (driver instanceof WebDriver) {
 			return new WebDriverWait((WebDriver)driver, timeout).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
 		}
@@ -147,6 +153,10 @@ public class WebElementFinder {
 
 	public void setSearchRestriction(String restriction) {
 		this.searchRestriction = restriction;
+	}
+
+	public void clearElement() {
+		this.we = null;		
 	}
 	
 	

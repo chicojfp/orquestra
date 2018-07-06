@@ -1,5 +1,6 @@
 package io.breezil.orquestra.musico.commands;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 import org.openqa.selenium.WebElement;
@@ -27,19 +28,19 @@ public class Command {
 	public boolean execute(ExecutionContext context) {
 		WebElementDefinition elInfo = context.getSearcher().findObjectDefinition(this.getItem());
 		
-		for (String xpath : elInfo.getXpaths()) {
-			WebElement el =  null;
-			el = context.getSearcher().findWebElement(this.updateXPathFilter(xpath));
-			if (el != null && doExecute(el) > 0) {
-				return true;
-			}
-		}
+//		for (String xpath : elInfo.getXpaths()) {
+//			WebElement el =  null;
+//			el = context.getSearcher().findWebElement(this.updateXPathFilter(xpath));
+//			if (el != null && doExecute(el) > 0) {
+//				return true;
+//			}
+//		}
 		
 		
 		
 //		Arrays.asList(elInfo.getXpaths()).stream().parallel().forEach((xpath)-> {
 //			WebElement el =  null;
-//			el = seacher.findWebElement(driver, this.updateXPathFilter(xpath));
+//			el = context.getSearcher().findWebElement(this.updateXPathFilter(xpath));
 //			if (el != null) {
 //				doExecute(el);
 //			}
@@ -48,13 +49,31 @@ public class Command {
 		
 //		boolean isOk = Arrays.asList(elInfo.getXpaths()).parallelStream().anyMatch(p -> {
 //			WebElement el =  null;
-//			el = seacher.findWebElement(driver, this.updateXPathFilter(p));
+//			el = context.getSearcher().findWebElement(this.updateXPathFilter(p));
 //			if (el != null) {
 //				return doExecute(el) > 0;
 //			}
 //			return false;
 //		});
 		
+		WebElement el = Arrays.asList(elInfo.getXpaths()).parallelStream().filter(p -> {
+			System.out.println("11111 Procurando componente: " + this.updateXPathFilter(p));
+			WebElement we = context.getSearcher().findWebElement(this.updateXPathFilter(p));
+			System.out.println("22222 Componente encontrado: " + we);
+			return we != null;
+		}).findFirst().map(p -> context.getSearcher().findWebElement(this.updateXPathFilter(p)))
+				.get();
+		context.getSearcher().clearElement();
+		
+		System.out.println("Achou o elemento: " + el);
+				
+//		.map(p -> {
+//			return false;
+//		}).findFirst() != null;
+		
+		if (el != null) {
+			return doExecute(el) > 0;
+		}
 		
 //		int value = Arrays.asList(elInfo.getXpaths()).parallelStream().mapToInt(p -> {
 //			WebElement el =  null;
