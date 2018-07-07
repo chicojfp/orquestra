@@ -1,21 +1,26 @@
 [
 	{
 		"name": "botão",
-		"xpaths": [	"//input[@value='%s' and @type='submit']",
-					"//button[contains(.,\"%s\")]", 
+		"xpaths": [	"//button[contains(.,\"%s\")]", 
 					"//button[@aria-label=\"%s\"]",
-					"//input[@type='button' and @value='%s']"
+					"//input[@value=\"%s\" and (@type=\"submit\" or @type=\"button\")]"
+				  ]
+	},
+	{
+		"name": "overlay",
+		"xpaths": [	"//div[contains(@class,\"cdk-overlay-container\")]"
 				  ]
 	},
 	{
 		"name": "campo",
-		"xpaths": ["//input[@aria-label=\"%s\"]" ,
-				   "//input[contains(@placeholder, \"%s\")]" ,
-		           "//label[contains(text(),\"%s\")]"]
+		"xpaths": [ "//input[contains(@placeholder, \"%s\")]" ,
+					"//input[@aria-label=\"%s\"]" ,
+		           	"//label[contains(text(),\"%s\")]"]
 	},
 	{
 		"name": "agrupador",
-		"xpaths": ["//mat-card[contains(.,\"%s\")]"]
+		"xpaths": ["//pje-painel-item[contains(.,\"%s\")]",
+				   "//mat-card[contains(.,\"%s\")]"]
 	},
 	{
 		"name": "combo",
@@ -50,7 +55,7 @@
 	},
 	{
 		"name": "quadro",
-		"xpaths": ["//div/div[contains(.,\"%s\") and contains(@class,'rich-panel-header')]/parent::*"]
+		"xpaths": ["//div/div[contains(.,\"%s\") and contains(@class,\"rich-panel-header\")]/parent::*"]
 	},
 	{
 		"name": "rótulo",
@@ -83,6 +88,10 @@
 	{
 		"name": "nó",
 		"xpaths": ["//td[contains(@class,\"rich-tree-node-text\") and contains(.,\"%s\")]"]
+	},
+	{
+		"name": "OJ",
+		"xpaths": ["//button[contains(@class,\"chip-oj\")]"]
 	}
 
 ]

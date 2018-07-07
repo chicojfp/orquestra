@@ -7,6 +7,11 @@
 				  ]
 	},
 	{
+		"name": "overlay",
+		"xpaths": [	"//div[contains(@class,\"cdk-overlay-container\")]"
+				  ]
+	},
+	{
 		"name": "campo",
 		"xpaths": [ "//input[contains(@placeholder, \"%s\")]" ,
 					"//input[@aria-label=\"%s\"]" ,
@@ -50,7 +55,7 @@
 	},
 	{
 		"name": "quadro",
-		"xpaths": ["//div/div[contains(.,\"%s\") and contains(@class,'rich-panel-header')]/parent::*"]
+		"xpaths": ["//div/div[\"%s\" and contains(@class,'rich-panel-header')]/parent::*"]
 	},
 	{
 		"name": "rótulo",

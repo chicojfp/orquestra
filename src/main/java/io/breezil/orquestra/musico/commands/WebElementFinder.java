@@ -32,20 +32,22 @@ public class WebElementFinder {
 	private final int FIRST_TIMEOUT = 1;
 	private final int SECOND_TIMEOUT = 3;
 	private String searchRestriction;
-	
+
 	public WebElementFinder(String fileName) {
 		this.weInfos = this.loadWEInfos(fileName);
 	}
-	
+
 	public WebElementFinder() {
 	}
-	
+
 	@SuppressWarnings("serial")
 	public List<WebElementDefinition> loadWEInfos(String fileName) {
 		List<WebElementDefinition> data = new ArrayList<>();
 		try {
-			JsonReader reader = new JsonReader(new InputStreamReader(new FileInputStream(fileName), "UTF-8"));  //new FileReader(fileName));
-			Type gsonType = new TypeToken<List<WebElementDefinition>>(){}.getType();
+			JsonReader reader = new JsonReader(new InputStreamReader(new FileInputStream(fileName), "UTF-8")); // new
+																												// FileReader(fileName));
+			Type gsonType = new TypeToken<List<WebElementDefinition>>() {
+			}.getType();
 			data = new Gson().fromJson(reader, gsonType);
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			throw new OrquestraException("Não foi possível carregar o arquivo de definições.");
@@ -62,7 +64,7 @@ public class WebElementFinder {
 		}
 		throw new ParseException(String.format("Não há definição para elemento do tipo: '%s'", name));
 	}
-	
+
 	protected WebElement findWebElement(String xpath) {
 		xpath = Strings.nullToEmpty(this.searchRestriction) + xpath;
 		System.out.println("Procurando elemento: " + xpath);
@@ -77,14 +79,14 @@ public class WebElementFinder {
 			}
 		}
 		if (!Objects.isNull(we)) {
-			String forElementName = we.getAttribute("for"); 
+			String forElementName = we.getAttribute("for");
 			if (!Objects.isNull(forElementName)) {
 				we = findWebElementById(searcher, forElementName);
 			}
 		}
 		return we;
 	}
-	
+
 	protected List<WebElement> findWebElements(String xpath) {
 		xpath = Strings.nullToEmpty(this.searchRestriction) + xpath;
 		System.out.println("Procurando elementos: " + xpath);
@@ -100,7 +102,7 @@ public class WebElementFinder {
 		}
 		if (!Objects.isNull(wes)) {
 			for (WebElement we : wes) {
-				String forElementName = we.getAttribute("for"); 
+				String forElementName = we.getAttribute("for");
 				if (!Objects.isNull(forElementName)) {
 					wes.remove(we);
 					wes.add(findWebElementById(searcher, forElementName));
@@ -109,21 +111,23 @@ public class WebElementFinder {
 		}
 		return wes;
 	}
-	
+
 	protected WebElement findWebElementById(SearchContext driver, String id) {
 		return driver.findElement(By.id(id));
 	}
-	
+
 	protected WebElement findElement(SearchContext driver, long timeout, String xpath) {
 		if (driver instanceof WebDriver) {
-			return new WebDriverWait((WebDriver)driver, timeout).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+			return new WebDriverWait((WebDriver) driver, timeout)
+					.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
 		}
 		return driver.findElement(By.xpath(xpath));
 	}
-	
+
 	protected List<WebElement> findElements(SearchContext driver, long timeout, String xpath) {
 		if (driver instanceof WebDriver) {
-			new WebDriverWait((WebDriver)driver, timeout).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+			new WebDriverWait((WebDriver) driver, timeout)
+					.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
 		}
 		return driver.findElements(By.xpath(xpath));
 	}
@@ -140,7 +144,7 @@ public class WebElementFinder {
 		this.searcher = searcher;
 		return this;
 	}
-	
+
 	public SearchContext getSearchContext() {
 		return this.searcher;
 	}
@@ -148,7 +152,5 @@ public class WebElementFinder {
 	public void setSearchRestriction(String restriction) {
 		this.searchRestriction = restriction;
 	}
-	
-	
 
 }

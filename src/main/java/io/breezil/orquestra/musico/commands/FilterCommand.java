@@ -6,6 +6,7 @@ import io.breezil.orquestra.instrumento.ExecutionContext;
 
 public class FilterCommand extends ComplexCommand {
 	private String order;
+	private String partialValue;
 	
 	public FilterCommand() {
 		super();
@@ -19,16 +20,20 @@ public class FilterCommand extends ComplexCommand {
 	@Override
 	public String updateXPathFilter(String xpath) {
 		String filter = "";
-		if (!Objects.isNull(order)) {
-			filter += order;
-		}
-		if (!Objects.isNull(value)) {
+		filter = appendIfNotNull(filter, order, order);
+		filter = appendIfNotNull(filter, value, value);
+		filter = appendIfNotNull(filter, partialValue, "contains(.,\""+ partialValue + "\")");
+		return super.updateXPathFilter(String.format(xpath, filter));
+	}
+
+	private String appendIfNotNull(String filter, String valueToCheck, String valueToAppend) {
+		if (!Objects.isNull(valueToCheck)) {
 			if (filter.length() > 0) {
 				filter += " and ";
 			}
-			filter += "contains(.,\""+ value + "\")";
+			filter += valueToAppend;
 		}
-		return super.updateXPathFilter(String.format(xpath, filter));
+		return filter;
 	}
 	
 	@Override
@@ -50,6 +55,14 @@ public class FilterCommand extends ComplexCommand {
 
 	public void setOrder(String order) {
 		this.order = order;
+	}
+
+	public String getPartialValue() {
+		return partialValue;
+	}
+
+	public void setPartialValue(String partialValue) {
+		this.partialValue = partialValue;
 	}
 	
 }

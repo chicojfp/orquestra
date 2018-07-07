@@ -21,7 +21,8 @@
 <sendKey> := Enter;
 
 <FilterCommand> := <nona> <item> <filterargs> <exp>;
-<filterargs> := , | <order> , | " <value> " , ;
+<filterargs> := , | <order> , | " <value> " , | <partialMatch> " <partialValue> " , ;
+<partialMatch> := que contém;
 
 
 <SwitchWindowCommand> := Ir para popup " <descricao> " ;
@@ -37,15 +38,18 @@
 <GoToWindowCommand> := Ir para o popup " <descricao> ";
 
 
-<WaitCommand> := Aguarde <time> s <condicao> ;
-<condicao> :=  . | pelo <item> | pela rota <url> ;
+<WaitCommand> := Aguarde <condition> ;
+<condition> := <article> <item> estar <action> | <time> s <predicate> ;
+<predicate> :=  . | pelo <item> | pela rota <url> ;
 
 <RunCommand> := Execute o " <name> " ;
 
 <VerifyCommand> := O <item> " <name> " deve ser <action>;
-<action> := <propIsDisplayed> | <propIsEnabled>;
+<action> := <not> <term> | <term> ;
+<term> := <propIsDisplayed> | <propIsEnabled>;
 <propIsDisplayed> := visível;
 <propIsEnabled> := clicável;
+<not> := não ;
 
 <ForEachCommand> := Para cada <item> execute o comando: " <name> " ;
 
@@ -67,6 +71,7 @@
 <key> := ^[\w*ã.*\p{L}]+;
 <variavel> := ^[\w*ã.*\p{L}]+;
 <value> := ^[\d\-\w@!$%&*/:;<=>?@^_{}~$\s/:.,\p{L})(]+;
+<partialValue> := ^[\d\-\w@!$%&*/:;<=>?@^_{}~$\s/:.,\p{L})(]+;
 # "#$%&'()*+,-./:;<=>?@[\]^_`{|}~$#%ˆ
 <name> := ^[-\w* *:*/*.*ª\p{L})(\-$]*;
 <combo> := ^[\w*\s*]+;
