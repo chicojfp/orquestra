@@ -38,9 +38,9 @@ public class ScriptStep {
 	}
 
 	public void setSuccessExecution(boolean success) {
-		this.success  = success;
+		this.success = success;
 	}
-	
+
 	public boolean isSuccess() {
 		return success;
 	}
@@ -57,4 +57,8 @@ public class ScriptStep {
 		return this.innerScript;
 	}
 
+	@Override
+	public String toString() {
+		return this.script;
+	}
 }

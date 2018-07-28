@@ -9,12 +9,13 @@ import java.util.stream.Stream;
 
 public class FileSystemReader extends ScriptReaderBase {
 	private String basePath;
-	
+
 	public FileSystemReader(String basePath) {
 		this.basePath = basePath;
 	}
-	
-	public FileSystemReader() {	}
+
+	public FileSystemReader() {
+	}
 
 	@Override
 	public Script readScript(String scriptID) {
@@ -22,9 +23,10 @@ public class FileSystemReader extends ScriptReaderBase {
 		System.out.println("Reading script file: " + filePath.toString());
 		Script info = new Script();
 		info.setName(scriptID);
-		
+
 		try (Stream<String> stream = Files.lines(filePath, StandardCharsets.UTF_8)) {
 			stream.forEach(e -> {
+				// System.out.println(e);
 				if (this.mustParseScriptLin(e)) {
 					info.addStep(e);
 				}
@@ -32,8 +34,9 @@ public class FileSystemReader extends ScriptReaderBase {
 			stream.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally { }
-		
+		} finally {
+		}
+
 		return info;
 	}
 

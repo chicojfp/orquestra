@@ -2,10 +2,16 @@
 # Example of a simple BNF grammar for arithmetic expressions
 # ---------------------------------------------
 
-<exp> := <ClickCommand> | <GoToURLCommand> | <FillInputCommand> | 
+<exp> := <scriptStepDef> | <ClickCommand> | <GoToURLCommand> | <FillInputCommand> | 
 		 <FilterCommand> | <SwitchWindowCommand> | <SelectCommand> | <CopyCommand> |
 		 <GoToWindowCommand> | <WaitCommand> | <RunCommand> | <VerifyCommand> | <ForEachCommand> |
-		 <SetVarCommand>;
+		 <SetVarCommand> | <scriptNameDef>;
+
+<scriptStepDef> := \t <exp>;
+
+<scriptNameDef> := <value> : ;
+
+<blank> := \t ;
 
 <ClickCommand> := <click> <nona> <item> " <name> ";
 <click> := Clique | clique;
@@ -70,7 +76,7 @@
 <item> := ^[\w*ã.*\p{L}]+;
 <key> := ^[\w*ã.*\p{L}]+;
 <variavel> := ^[\w*ã.*\p{L}]+;
-<value> := ^[\d\-\w@!$%&*/:;<=>?@^_{}~$\s/:.,\p{L})(]+;
+<value> := ^[\d\-\w@!$%&*/;<=>?@^_{}~$\s/.,\p{L})(]+;
 <partialValue> := ^[\d\-\w@!$%&*/:;<=>?@^_{}~$\s/:.,\p{L})(]+;
 # "#$%&'()*+,-./:;<=>?@[\]^_`{|}~$#%ˆ
 <name> := ^[-\w* *:*/*.*ª\p{L})(\-$]*;
