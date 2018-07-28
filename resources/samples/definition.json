@@ -3,7 +3,8 @@
 		"name": "botão",
 		"xpaths": [	"//button[contains(.,\"%s\")]", 
 					"//button[@aria-label=\"%s\"]",
-					"//input[@value=\"%s\" and (@type=\"submit\" or @type=\"button\")]"
+					"//input[@value=\"%s\" and (@type=\"submit\" or @type=\"button\")]",
+					"//a[contains(.,\"%s\")]"
 				  ]
 	},
 	{
@@ -15,7 +16,8 @@
 		"name": "campo",
 		"xpaths": [ "//input[contains(@placeholder, \"%s\")]" ,
 					"//input[@aria-label=\"%s\"]" ,
-		           	"//label[contains(text(),\"%s\")]"]
+		           	"//label[contains(text(),\"%s\")]",
+		           	"//label[contains(.,\"%s\")]"]
 	},
 	{
 		"name": "agrupador",

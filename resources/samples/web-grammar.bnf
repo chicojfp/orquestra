@@ -7,9 +7,12 @@
 		 <GoToWindowCommand> | <WaitCommand> | <RunCommand> | <VerifyCommand> | <ForEachCommand> |
 		 <SetVarCommand>;
 
-<ClickCommand> := <click> <nona> <item> " <name> ";
+<ClickCommand> := <click> <nona> <complexItem> " <name> ";
 <click> := Clique | clique;
 <nona> := no | na | No | Na;
+
+<complexItem> := <item> <partial> | <item> ;
+<partial> := que contém;
 
 
 <GoToURLCommand> := Acesse <url>;
@@ -28,7 +31,7 @@
 <SwitchWindowCommand> := Ir para popup " <descricao> " ;
 
 
-<SelectCommand> := Selecione <article> item " <value> " na <item> " <name> " ;
+<SelectCommand> := Selecione <article> <complexItem> " <value> " na <item> " <name> " ;
 <article> := o | a | O | A ;
 
 
@@ -77,5 +80,5 @@
 <combo> := ^[\w*\s*]+;
 <descricao> := ^[\-\w\s/:.\p{L})(]+;
 <order> := ^\w+;
-<url> := ^[\w:/.]+;
+<url> := ^[\w:/.-\_]+;
 <variableName> := ^[\w:/.]+;
