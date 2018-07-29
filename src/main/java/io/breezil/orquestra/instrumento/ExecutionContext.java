@@ -7,11 +7,15 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 
+import io.breezil.orquestra.compositor.ContextualParser;
 import io.breezil.orquestra.compositor.Script;
+import io.breezil.orquestra.musico.commands.CommandParser;
 import io.breezil.orquestra.musico.commands.SetVarCommand;
 import io.breezil.orquestra.musico.commands.WebElementFinder;
 
 public class ExecutionContext {
+	private CommandParser parser;
+	private ContextualParser contextualParser;
 	private Map<String, SetVarCommand> variables;
 	private Map<String, Script> scripts;
 	private Script mainScript;
@@ -24,7 +28,7 @@ public class ExecutionContext {
 		this.scripts = new HashMap<>();
 		instance = this;
 	}
-	
+
 	public ExecutionContext(Script mainScript) {
 		this();
 		this.mainScript = mainScript;
@@ -37,8 +41,9 @@ public class ExecutionContext {
 		this.searcher = seacher;
 		instance = this;
 	}
-	
+
 	protected static ExecutionContext instance;
+
 	public static ExecutionContext getInstance() {
 		return instance;
 	}
@@ -51,6 +56,9 @@ public class ExecutionContext {
 	}
 
 	public Script getScriptByName(String name) {
+		// if (this.scripts.containsKey(name + ":")) {
+		// this.scripts.get(name + ":");
+		// }
 		return this.scripts.get(name);
 	}
 
@@ -86,9 +94,26 @@ public class ExecutionContext {
 	public String getErrorImage() {
 		return errorImage;
 	}
-	
+
 	public SetVarCommand setVariableByName(String name, SetVarCommand value) {
 		return this.variables.put(name, value);
 	}
-	
+
+	public CommandParser setParser(CommandParser commandParser) {
+		this.parser = commandParser;
+		return this.parser;
+	}
+
+	public CommandParser getParser() {
+		return this.parser;
+	}
+
+	public void setContextualParser(ContextualParser contextualParser) {
+		this.contextualParser = contextualParser;
+	}
+
+	public ContextualParser getContextualParser() {
+		return this.contextualParser;
+	}
+
 }
