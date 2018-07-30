@@ -54,6 +54,7 @@ public class CommandParser {
 			}
 			if (command.hasDepencies()) {
 				Script newScript = ScriptReader.getReader().readScript(command.getName());
+				ExecutionContext.getInstance().getContextualParser().parse(newScript);
 				new CommandParser(this.parser).parseCommands(newScript);
 				((ComplexCommand) command).setInnerScript(newScript);
 			}

@@ -24,7 +24,7 @@ public class ContextualParser {
 			if (token.contains("Def")) {
 				System.out.println("Registrando definição do método: " + step.getScript());
 
-				Script s = parseMethod(steps, step);
+				Script s = parseMethod(step.getScript(), steps, step);
 				ExecutionContext.getInstance().addScript(s);
 				scripts.add(s);
 			} else if (step.getScript().length() == 0) {
@@ -35,7 +35,7 @@ public class ContextualParser {
 		return scripts;
 	}
 
-	private Script parseMethod(Iterator<ScriptStep> steps, ScriptStep step) {
+	private Script parseMethod(String methodName, Iterator<ScriptStep> steps, ScriptStep step) {
 		steps.remove();
 		Script inner = new Script();
 		inner.setName(step.getScript().substring(0, step.getScript().length() - 1));
@@ -44,7 +44,13 @@ public class ContextualParser {
 			inner.addStep(step.getScript());
 			// System.out.println(step.getScript());
 			steps.remove();
-			step = steps.next();
+			try {
+				step = steps.next();
+			} catch (java.util.NoSuchElementException nse) {
+				System.err.println("[ERRO] Não existe linha final após definição do método acima: " + methodName);
+//				nse.printStackTrace();
+				System.exit(1);
+			}
 		}
 		steps.remove();
 
