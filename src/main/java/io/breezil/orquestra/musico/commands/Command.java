@@ -1,6 +1,9 @@
 package io.breezil.orquestra.musico.commands;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.openqa.selenium.WebElement;
 
@@ -33,16 +36,40 @@ public class Command {
 		this.xPathModification = xPathModification;
 	}
 
+	protected List<String> processElementDefinition(WebElementDefinition weDef) {
+		return Arrays.asList(weDef.getXpaths()).stream().map(x -> this.updateXPathFilter(x))
+				.collect(Collectors.toList());
+	}
+
 	public boolean execute(ExecutionContext context) {
 		WebElementDefinition elInfo = context.getSearcher().findObjectDefinition(this.getItem());
 
-		for (String xpath : elInfo.getXpaths()) {
-			WebElement el = null;
-			el = context.getSearcher().findWebElement(this.updateXPathFilter(xpath));
-			if (el != null && doExecute(el) > 0) {
-				return true;
-			}
+//		for (String xpath : elInfo.getXpaths()) {
+//			WebElement el = null;
+//			el = context.getSearcher().findWebElement(this.updateXPathFilter(xpath));
+//			if (el != null && doExecute(el) > 0) {
+//				return true;
+//			}
+//		}
+
+//		for (int timeout : WebElementFinder.TIMEOUTS) {
+
+//			context.getSearcher().findWebElement(processElementDefinition(elInfo));
+
+//			String found = processElementDefinition(elInfo).filter(x -> {
+//				return context.getSearcher().findWebElement(this.updateXPathFilter(x), timeout) != null;
+//			}).findFirst().orElse(null);
+
+//		if (found != null) {
+//				WebElement el = context.getSearcher().findWebElement(this.updateXPathFilter(found), timeout);
+		WebElement el = context.getSearcher().findWebElement(this.processElementDefinition(elInfo));
+
+		if (el != null && doExecute(el) > 0) {
+			return true;
 		}
+//		}
+
+//		}
 
 		// Arrays.asList(elInfo.getXpaths()).stream().parallel().forEach((xpath)-> {
 		// WebElement el = null;

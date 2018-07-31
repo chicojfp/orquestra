@@ -29,8 +29,9 @@ import io.breezil.orquestra.exception.ParseException;
 public class WebElementFinder {
 	private List<WebElementDefinition> weInfos;
 	private SearchContext searcher;
-	private final int FIRST_TIMEOUT = 1;
-	private final int SECOND_TIMEOUT = 3;
+	public static int[] TIMEOUTS = { 1, 3, 5 };
+//	private final int FIRST_TIMEOUT = 1;
+//	private final int SECOND_TIMEOUT = 3;
 	private String searchRestriction;
 
 	public WebElementFinder(String fileName) {
@@ -66,17 +67,34 @@ public class WebElementFinder {
 	}
 
 	protected WebElement findWebElement(String xpath) {
+		return this.findWebElement(xpath, 1);
+	}
+
+	protected WebElement findWebElement(List<String> xpaths) {
+		for (int timeout : TIMEOUTS) {
+			System.out.println(String.format("   Buscando elementos com Timeout: %s seg.", timeout));
+
+			String xpath = xpaths.stream().parallel().filter(x -> this.findWebElement(x, timeout) != null).findFirst()
+					.orElse(null);
+			if (xpath != null) {
+				return this.findWebElement(xpath, timeout);
+			}
+		}
+		return null;
+	}
+
+	protected WebElement findWebElement(String xpath, int timeout) {
 		xpath = Strings.nullToEmpty(this.searchRestriction) + xpath;
 		System.out.println("Procurando elemento: " + xpath);
 		WebElement we = null;
 		try {
-			we = findElement(searcher, FIRST_TIMEOUT, xpath);
+			we = findElement(searcher, timeout, xpath);
 		} catch (NoSuchElementException | TimeoutException nse) {
-			try {
-				we = findElement(searcher, SECOND_TIMEOUT, xpath);
-			} catch (org.openqa.selenium.TimeoutException te) {
-				System.err.println("Não foi possível recuperar o elemento: " + xpath);
-			}
+//			try {
+//				we = findElement(searcher, SECOND_TIMEOUT, xpath);
+//			} catch (org.openqa.selenium.TimeoutException te) {
+//				System.err.println("Não foi possível recuperar o elemento: " + xpath);
+//			}
 		}
 		if (!Objects.isNull(we)) {
 			String forElementName = we.getAttribute("for");
@@ -87,18 +105,18 @@ public class WebElementFinder {
 		return we;
 	}
 
-	protected List<WebElement> findWebElements(String xpath) {
+	protected List<WebElement> findWebElements(String xpath, int timeout) {
 		xpath = Strings.nullToEmpty(this.searchRestriction) + xpath;
 		System.out.println("Procurando elementos: " + xpath);
 		List<WebElement> wes = null;
 		try {
-			wes = findElements(searcher, FIRST_TIMEOUT, xpath);
+			wes = findElements(searcher, timeout, xpath);
 		} catch (NoSuchElementException | TimeoutException nse) {
-			try {
-				wes = findElements(searcher, SECOND_TIMEOUT, xpath);
-			} catch (org.openqa.selenium.TimeoutException te) {
-				System.err.println("Não foi possível recuperar o elemento: " + xpath);
-			}
+//			try {
+//				wes = findElements(searcher, SECOND_TIMEOUT, xpath);
+//			} catch (org.openqa.selenium.TimeoutException te) {
+//				System.err.println("Não foi possível recuperar o elemento: " + xpath);
+//			}
 		}
 		if (!Objects.isNull(wes)) {
 			for (WebElement we : wes) {

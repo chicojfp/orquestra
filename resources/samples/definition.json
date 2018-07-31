@@ -64,6 +64,10 @@
 		"xpaths": ["//label[contains(.,\"%s\")"]
 	},
 	{
+		"name": "árvore",
+		"xpaths": ["//label[contains(.,\"%s\")]/ancestor::div[contains(@id, \"TreeDecoration\")]//div[contains(@class, \"rich-stglpanel-header\") and contains(@class, \"inputTreeHeader\")]"]
+	},
+	{
 		"name": "imagem",
 		"xpaths": ["//img[contains(@title,\"%s\")]/parent::*"]
 	},
@@ -84,8 +88,8 @@
 		"xpaths": ["//table[@class=\"rich-sb-int-decor-table\"]/tbody/tr"]
 	},
 	{
-		"name": "árvore",
-		"xpaths": ["//label[contains(.,\"%s\")]/ancestor::div[@class=\"propertyView\"]//div[contains(@class,\"rich-stglpanel-header\")]"]
+		"name": "expansor",
+		"xpaths": ["//td[contains(@class,\"rich-tree-node-text\") and contains(.,\"%s\")]/ancestor::tr[1]//span[contains(@class, \"rich-tree-node-handle\")]"]
 	},
 	{
 		"name": "nó",

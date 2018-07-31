@@ -30,7 +30,7 @@ public class ForEachCommand extends ComplexCommand {
 		WebElementDefinition elInfo = context.getSearcher().findObjectDefinition(this.getItem());
 		for (String xpath : elInfo.getXpaths()) {
 			String searchRestriction = this.updateXPathFilter(xpath);
-			List<WebElement> els = context.getSearcher().findWebElements(searchRestriction);
+			List<WebElement> els = context.getSearcher().findWebElements(searchRestriction, 1);
 			if (!Objects.isNull(els)) {
 				for (int order = 1; order <= els.size(); order++) {
 					String restrictionPath = String.format("(%s)[%s]/parent::*", searchRestriction, order);
