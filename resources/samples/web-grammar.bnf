@@ -5,7 +5,7 @@
 <exp> := <scriptStepDef> | <ClickCommand> | <GoToURLCommand> | <FillInputCommand> | 
 		 <FilterCommand> | <SwitchWindowCommand> | <SelectCommand> | <CopyCommand> |
 		 <GoToWindowCommand> | <WaitCommand> | <RunCommand> | <VerifyCommand> | <ForEachCommand> |
-		 <SetVarCommand> | <scriptNameDef>;
+		 <SetVarCommand> | <DialogCommand> | <scriptNameDef>;
 
 <scriptStepDef> := \t <exp>;
 
@@ -19,6 +19,8 @@
 
 <complexItem> := <item> <partial> | <item> ;
 <partial> := que contém;
+
+<DialogCommand> := Feche o alerta;
 
 
 <GoToURLCommand> := Acesse <url>;
@@ -76,7 +78,7 @@
 # the ^ and $ characters.
 <num> := ^\w+;
 <time> := ^\d+;
-<item> := ^[\w*ã.*\p{L}]+;
+<item> := ^[\w*ãç.*\p{L}]+;
 <key> := ^[\w*ã.*\p{L}]+;
 <variavel> := ^[\w*ã.*\p{L}]+;
 <value> := ^[\d\-\w@!$%&*/;<=>?@^_{}~$\s/.,\p{L})(]+;

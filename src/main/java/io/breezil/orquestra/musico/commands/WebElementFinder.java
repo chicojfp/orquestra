@@ -83,6 +83,17 @@ public class WebElementFinder {
 		return null;
 	}
 
+	protected WebElement findWebElement(List<String> xpaths, int timeout) {
+		System.out.println(String.format("   Buscando elementos com Timeout: %s seg.", timeout));
+
+		String xpath = xpaths.stream().parallel().filter(x -> this.findWebElement(x, timeout) != null).findFirst()
+				.orElse(null);
+		if (xpath != null) {
+			return this.findWebElement(xpath, timeout);
+		}
+		return null;
+	}
+
 	protected WebElement findWebElement(String xpath, int timeout) {
 		xpath = Strings.nullToEmpty(this.searchRestriction) + xpath;
 		System.out.println("Procurando elemento: " + xpath);
@@ -135,7 +146,7 @@ public class WebElementFinder {
 	}
 
 	protected WebElement findElement(SearchContext driver, long timeout, String xpath) {
-		if (driver instanceof WebDriver) {
+		if (driver instanceof WebDriver && timeout > 0) {
 			return new WebDriverWait((WebDriver) driver, timeout)
 					.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
 		}

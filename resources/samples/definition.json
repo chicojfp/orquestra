@@ -35,6 +35,11 @@
 		"xpaths": ["//mat-option[contains(.,\"%s\")]"]
 	},
 	{
+		"name": "loading",
+		"xpaths": ["//span[@id=\"_viewRoot:status.start\"]",
+				"//div[@id=\"modalStatusDiv\"]"]
+	},
+	{
 		"name": "tabela",
 		"xpaths": ["//table"]
 	},

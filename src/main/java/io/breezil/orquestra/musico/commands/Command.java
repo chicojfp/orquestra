@@ -42,65 +42,29 @@ public class Command {
 	}
 
 	public boolean execute(ExecutionContext context) {
-		WebElementDefinition elInfo = context.getSearcher().findObjectDefinition(this.getItem());
-
-//		for (String xpath : elInfo.getXpaths()) {
-//			WebElement el = null;
-//			el = context.getSearcher().findWebElement(this.updateXPathFilter(xpath));
-//			if (el != null && doExecute(el) > 0) {
-//				return true;
-//			}
-//		}
-
-//		for (int timeout : WebElementFinder.TIMEOUTS) {
-
-//			context.getSearcher().findWebElement(processElementDefinition(elInfo));
-
-//			String found = processElementDefinition(elInfo).filter(x -> {
-//				return context.getSearcher().findWebElement(this.updateXPathFilter(x), timeout) != null;
-//			}).findFirst().orElse(null);
-
-//		if (found != null) {
-//				WebElement el = context.getSearcher().findWebElement(this.updateXPathFilter(found), timeout);
-		WebElement el = context.getSearcher().findWebElement(this.processElementDefinition(elInfo));
+		if (!(this instanceof WaitCommand)) {
+			WaitCommand wait = new WaitCommand();
+			wait.setItem("loading");
+			wait.setPropIsDisplayed("modal");
+			wait.setNot("not");
+			wait.execute(context);
+		}
+		WebElementDefinition elInfo = getDefinitions(context);
+		WebElement el = doSearch(context, elInfo);
 
 		if (el != null && doExecute(el) > 0) {
 			return true;
 		}
-//		}
-
-//		}
-
-		// Arrays.asList(elInfo.getXpaths()).stream().parallel().forEach((xpath)-> {
-		// WebElement el = null;
-		// el = seacher.findWebElement(driver, this.updateXPathFilter(xpath));
-		// if (el != null) {
-		// doExecute(el);
-		// }
-		// });
-
-		// boolean isOk = Arrays.asList(elInfo.getXpaths()).parallelStream().anyMatch(p
-		// -> {
-		// WebElement el = null;
-		// el = seacher.findWebElement(driver, this.updateXPathFilter(p));
-		// if (el != null) {
-		// return doExecute(el) > 0;
-		// }
-		// return false;
-		// });
-
-		// int value = Arrays.asList(elInfo.getXpaths()).parallelStream().mapToInt(p ->
-		// {
-		// WebElement el = null;
-		// el = seacher.findWebElement(driver, this.updateXPathFilter(p));
-		// if (el != null) {
-		// return doExecute(el);
-		// }
-		// return 0;
-		// }).sum();
-
 		throw new ExecutionException(String.format("Não foi possível recuperar o %s \"%s\"", this.item, this.name));
+	}
 
+	private WebElementDefinition getDefinitions(ExecutionContext context) {
+		return context.getSearcher().findObjectDefinition(this.getItem());
+	}
+
+	protected WebElement doSearch(ExecutionContext context, WebElementDefinition elInfo) {
+		WebElement el = context.getSearcher().findWebElement(this.processElementDefinition(elInfo));
+		return el;
 	}
 
 	protected int doExecute(WebElement el) {

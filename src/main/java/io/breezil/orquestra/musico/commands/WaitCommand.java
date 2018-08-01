@@ -1,10 +1,11 @@
 package io.breezil.orquestra.musico.commands;
 
-import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import io.breezil.orquestra.exception.ExecutionException;
 import io.breezil.orquestra.instrumento.ExecutionContext;
 
 public class WaitCommand extends Command {
@@ -19,29 +20,45 @@ public class WaitCommand extends Command {
 
 	@Override
 	public boolean execute(ExecutionContext context) {
+		this.setName(this.getItem());
 		if (this.getTime() != null) {
-			new WebDriverWait(context.getDriver(), Integer.parseInt(this.getTime()));
+			new WebDriverWait(ExecutionContext.getInstance().getDriver(), Integer.parseInt(this.getTime()));
 		} else {
-			new WebDriverWait(context.getDriver(), 5).until(defineWaitCondition());
+			try {
+				super.execute(context);
+			} catch (ExecutionException ee) {
+//				ee.printStackTrace();
+			}
 		}
-
 		return true;
 	}
 
-	private ExpectedCondition<?> defineWaitCondition() {
+	@Override
+	protected WebElement doSearch(ExecutionContext context, WebElementDefinition elInfo) {
+		WebElement el = context.getSearcher().findWebElement(this.processElementDefinition(elInfo), 1);
+		return el;
+	}
+
+	@Override
+	protected int doExecute(WebElement el) {
+		new WebDriverWait(ExecutionContext.getInstance().getDriver(), 10).until(defineWaitCondition(el));
+		return 1;
+	}
+
+	private ExpectedCondition<?> defineWaitCondition(WebElement el) {
 		switch (this.getCondition()) {
 		case "visible":
-			return ExpectedConditions.visibilityOfElementLocated(By.id("modalStatusDiv"));
+			return ExpectedConditions.visibilityOf(el);
 		case "invisible":
-			return ExpectedConditions.invisibilityOfElementLocated(By.id("modalStatusDiv"));
+			return ExpectedConditions.invisibilityOf(el);
 		case "clickable":
-			return ExpectedConditions.elementToBeClickable(By.id("modalStatusDiv"));
+			return ExpectedConditions.elementToBeClickable(el);
 
 		default:
 			break;
 		}
 
-		return ExpectedConditions.invisibilityOfElementLocated(By.id("modalStatusDiv"));
+		return ExpectedConditions.invisibilityOf(el);
 	}
 
 	private String getCondition() {
@@ -83,6 +100,10 @@ public class WaitCommand extends Command {
 
 	public void setNot(String not) {
 		this.not = not;
+	}
+
+	public static void waitClickable(WebElement el) {
+		new WaitCommand().doExecute(el);
 	}
 
 }
