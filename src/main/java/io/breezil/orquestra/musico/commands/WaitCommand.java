@@ -106,4 +106,12 @@ public class WaitCommand extends Command {
 		new WaitCommand().doExecute(el);
 	}
 
+	public static void waitModal() {
+		WaitCommand wait = new WaitCommand();
+		wait.setItem("loading");
+		wait.setPropIsDisplayed("modal");
+		wait.setNot("not");
+		wait.execute(ExecutionContext.getInstance());
+	}
+
 }

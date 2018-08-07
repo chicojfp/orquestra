@@ -12,14 +12,15 @@ import io.breezil.orquestra.compositor.FileSystemReader;
 import io.breezil.orquestra.compositor.Script;
 import io.breezil.orquestra.compositor.ScriptReader;
 import io.breezil.orquestra.compositor.ScriptStep;
+import io.breezil.orquestra.instrumento.ExecutionContext;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CommandParserTest {
+public class CommandParserTest extends BaseTest {
 	private CommandParser parser;
 
 	@Before
 	public void prepareParseEnviroment() {
-		this.parser = new CommandParser("./samples/web-grammar.bnf");
+		this.parser = new CommandParser(GRAMMAR_FILE);
 	}
 
 	@Test
@@ -83,22 +84,22 @@ public class CommandParserTest {
 
 	@Test
 	public void mustParseReferenteForAnotherScript() {
-		String innerScriptName = "./samples/TC-011.test";
+		String innerScriptName = TEST_FILE;
 		Script script = new Script();
 		script.addStep(String.format("Execute o \"" + innerScriptName + "\""));
 		FileSystemReader reader = Mockito.mock(FileSystemReader.class);
 		ScriptReader.setReader(reader);
-		
+
 		Mockito.doReturn(new Script()).when(reader).readScript(innerScriptName);
-		
+		new ExecutionContext();
+
 		script = parser.parseCommands(script);
 		String foundScriptName = captureElementXPath(reader);
-		
+
 		Assert.assertEquals("O script não foi lido conforme corretamente.", innerScriptName, foundScriptName);
-		
 
 	}
-	
+
 	protected String captureElementXPath(FileSystemReader reader) {
 		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
 		Mockito.verify(reader).readScript(captor.capture());

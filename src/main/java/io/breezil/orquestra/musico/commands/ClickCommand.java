@@ -19,7 +19,7 @@ public class ClickCommand extends Command {
 	protected WebElement doSearch(ExecutionContext context, WebElementDefinition elInfo) {
 		WebElement el = super.doSearch(context, elInfo);
 
-		WaitCommand.waitClickable(el);
+//		WaitCommand.waitClickable(el);
 
 		return el;
 	}

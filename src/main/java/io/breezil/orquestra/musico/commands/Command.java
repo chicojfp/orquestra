@@ -42,16 +42,12 @@ public class Command {
 	}
 
 	public boolean execute(ExecutionContext context) {
-		if (!(this instanceof WaitCommand)) {
-			WaitCommand wait = new WaitCommand();
-			wait.setItem("loading");
-			wait.setPropIsDisplayed("modal");
-			wait.setNot("not");
-			wait.execute(context);
-		}
+//		if ((this instanceof ClickCommand)) {
+//			WaitCommand.waitModal();
+//		}
+
 		WebElementDefinition elInfo = getDefinitions(context);
 		WebElement el = doSearch(context, elInfo);
-
 		if (el != null && doExecute(el) > 0) {
 			return true;
 		}

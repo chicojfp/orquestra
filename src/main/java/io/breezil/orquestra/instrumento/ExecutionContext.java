@@ -24,6 +24,7 @@ public class ExecutionContext {
 	private String errorImage;
 
 	public ExecutionContext() {
+		this.contextualParser = new ContextualParser();
 		this.variables = new HashMap<>();
 		this.scripts = new HashMap<>();
 		instance = this;

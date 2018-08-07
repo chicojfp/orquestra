@@ -1,5 +1,7 @@
 package io.breezil.orquestra.musico.commands;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +34,10 @@ public class CommandTest extends BaseTest {
 		cmd.setValue("XXX");
 		cmd.execute(new ExecutionContext(this.driver, this.seacher));
 
-		Assert.assertEquals("O botão foi não identificado corretamente", expectedValue, captureElementXPath());
+		List<String> values = capture_findWebElement_List_String();
+
+		Assert.assertEquals("Não foi retornado apenas um elemento na pesquisa.", 1, values.size());
+		Assert.assertEquals("O botão foi não identificado corretamente", expectedValue, values.get(0));
 	}
 
 	@Test
@@ -46,8 +51,10 @@ public class CommandTest extends BaseTest {
 		cmd.setName("Login");
 		cmd.execute(new ExecutionContext(this.driver, this.seacher));
 
-		Assert.assertEquals("O botão foi não identificado corretamente", tableName + expectedValue,
-				captureElementXPath());
+		List<String> values = capture_findWebElement_List_String();
+
+		Assert.assertEquals("Não foi retornado apenas um elemento na pesquisa.", 1, values.size());
+		Assert.assertEquals("O botão foi não identificado corretamente", tableName + expectedValue, values.get(0));
 	}
 
 	@Test(expected = ExecutionException.class)

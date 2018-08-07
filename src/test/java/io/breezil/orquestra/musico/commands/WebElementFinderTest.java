@@ -15,6 +15,7 @@ import io.breezil.orquestra.exception.ParseException;
 
 @RunWith(MockitoJUnitRunner.class)
 public class WebElementFinderTest {
+	private static final String DEFINITION_FILE = "./resources/samples/definition.json";
 	private WebDriver driver;
 
 	@Before
@@ -24,7 +25,7 @@ public class WebElementFinderTest {
 
 	@Test
 	public void mustLoadAllDefinitions() {
-		new WebElementFinder("./samples/definition.json");
+		new WebElementFinder(DEFINITION_FILE);
 	}
 
 	@Test(expected = OrquestraException.class)
@@ -34,14 +35,14 @@ public class WebElementFinderTest {
 
 	@Test
 	public void mustLoadFindADefinedItem() {
-		WebElementDefinition we = new WebElementFinder("./samples/definition.json").findObjectDefinition("botão");
+		WebElementDefinition we = new WebElementFinder(DEFINITION_FILE).findObjectDefinition("botão");
 
 		Assert.assertNotNull("A definição do objeto não foi encontrada.", we);
 	}
 
 	@Test(expected = ParseException.class)
 	public void mustThrowErrorWhenObjectNotFound() {
-		WebElementDefinition we = new WebElementFinder("./samples/definition.json").findObjectDefinition("booootão");
+		WebElementDefinition we = new WebElementFinder(DEFINITION_FILE).findObjectDefinition("booootão");
 
 		Assert.assertNotNull("A definição do objeto não foi encontrada.", we);
 	}
@@ -55,17 +56,6 @@ public class WebElementFinderTest {
 		WebElement we = searcher.findWebElement("//a");
 
 		Assert.assertNotNull("O Objeto não foi encontrado na página na primeira tentativa de localizá-lo.", we);
-	}
-
-	@Test
-	public void mustFindADefinedElementWithSecondLongWaitTimeout() {
-		WebElementFinder searcher = mockSearchElementFromFile();
-		mockWebElementSerarchFindElementoReturnValidElement(searcher, 3l);
-		mockWebElementSerarchFindElementoDoTrhow(searcher, 1l);
-
-		WebElement we = searcher.findWebElement("//a");
-
-		Assert.assertNotNull("O Objeto não foi encontrado na página na SEGUNDA tentativa de localizá-lo.", we);
 	}
 
 	@Test
@@ -96,7 +86,7 @@ public class WebElementFinderTest {
 
 	private WebElementFinder mockSearchElementFromFile() {
 		WebElementFinder searcher = Mockito.spy(WebElementFinder.class);
-		searcher.setWeInfos(searcher.loadWEInfos("./samples/definition.json"));
+		searcher.setWeInfos(searcher.loadWEInfos(DEFINITION_FILE));
 		searcher.setSearcherContext(this.driver);
 		return searcher;
 	}

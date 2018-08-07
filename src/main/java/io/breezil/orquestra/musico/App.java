@@ -1,7 +1,8 @@
 package io.breezil.orquestra.musico;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
 import io.breezil.orquestra.CliOptions;
 import io.breezil.orquestra.OrquestraCLI;
@@ -46,11 +47,11 @@ public class App {
 		exec.getContextualParser().parse(script);
 		exec.getParser().parseCommands(script);
 
-		// config ChromeOptions options = new ChromeOptions(); //
-		// options.addArguments("headless"); //
-		// options.addArguments("window-size=1200x600"); // WebDriver driver = new
-		// ChromeDriver(options);
-		WebDriver driver = new FirefoxDriver();
+		ChromeOptions options = new ChromeOptions();
+//		options.addArguments("headless");
+		options.addArguments("window-size=1200x600");
+		WebDriver driver = new ChromeDriver(options);
+//		WebDriver driver = new FirefoxDriver();
 
 		// ExecutionContext exec = new ExecutionContext(script);
 		exec.setDriver(driver);
