@@ -13,6 +13,11 @@
 				  ]
 	},
 	{
+		"name": "diálogo",
+		"xpaths": [	"//div[@id=\"dialogMessage\"]//dl"
+				  ]
+	},
+	{
 		"name": "campo",
 		"xpaths": [ "//input[contains(@placeholder, \"%s\")]" ,
 					"//input[@aria-label=\"%s\"]" ,

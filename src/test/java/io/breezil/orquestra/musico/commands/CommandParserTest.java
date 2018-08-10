@@ -8,6 +8,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import io.breezil.orquestra.compositor.ContextualParser;
 import io.breezil.orquestra.compositor.FileSystemReader;
 import io.breezil.orquestra.compositor.Script;
 import io.breezil.orquestra.compositor.ScriptReader;
@@ -91,7 +92,7 @@ public class CommandParserTest extends BaseTest {
 		ScriptReader.setReader(reader);
 
 		Mockito.doReturn(new Script()).when(reader).readScript(innerScriptName);
-		new ExecutionContext();
+		new ExecutionContext().setContextualParser(new ContextualParser());
 
 		script = parser.parseCommands(script);
 		String foundScriptName = captureElementXPath(reader);

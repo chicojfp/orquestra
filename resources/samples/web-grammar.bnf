@@ -55,12 +55,15 @@
 
 <RunCommand> := Execute o " <name> " ;
 
-<VerifyCommand> := O <item> " <name> " deve ser <action>;
+<VerifyCommand> := <article> <item> <itemCheck> <action>;
+<itemCheck> := " <name> " <check> | <check> ;
+<check> := deve ser | contém | ;
 <action> := <not> <term> | <term> ;
-<term> := <propIsDisplayed> | <propIsEnabled>;
+<term> := <propIsDisplayed> | <propIsEnabled> | " <containsText> ";
+<containsText> := <value> ;
 <propIsDisplayed> := visível;
 <propIsEnabled> := clicável;
-<not> := não ;
+<not> := não | in;
 
 <ForEachCommand> := Para cada <item> execute o comando: " <name> " ;
 

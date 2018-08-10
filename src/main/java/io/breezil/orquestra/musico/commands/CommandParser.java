@@ -19,6 +19,7 @@ import io.breezil.orquestra.compositor.ScriptStep;
 import io.breezil.orquestra.instrumento.ExecutionContext;
 
 public class CommandParser {
+	private static String DEFAULT_GRAMMAR_FILE = "./resources/samples/web-grammar.bnf";
 	private BnfParser parser;
 
 	public CommandParser(String grammarFile) {
@@ -32,6 +33,10 @@ public class CommandParser {
 
 	public CommandParser(BnfParser parser) {
 		this.parser = parser;
+	}
+
+	public CommandParser() {
+		this(DEFAULT_GRAMMAR_FILE);
 	}
 
 	public Script parseCommands(Script info) {
@@ -55,7 +60,7 @@ public class CommandParser {
 			if (command.hasDepencies()) {
 				Script newScript = ScriptReader.getReader().readScript(command.getName());
 				ExecutionContext.getInstance().getContextualParser().parse(newScript);
-				new CommandParser(this.parser).parseCommands(newScript);
+//				new CommandParser(this.parser).parseCommands(newScript);
 				((ComplexCommand) command).setInnerScript(newScript);
 			}
 		}
@@ -103,7 +108,6 @@ public class CommandParser {
 				return node.getChildren().get(0).getToken();
 			}
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "";

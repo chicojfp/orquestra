@@ -3,6 +3,7 @@ package io.breezil.orquestra.musico;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import io.breezil.orquestra.CliOptions;
 import io.breezil.orquestra.OrquestraCLI;
@@ -18,42 +19,22 @@ import io.breezil.orquestra.musico.commands.CommandParser;
 import io.breezil.orquestra.musico.commands.WebElementFinder;
 
 /**
- * Hello world!
+ * Orquestra DSL by @chicojfp
  * 
  */
 public class App {
 	public static void main(String[] args) {
 
 		CliOptions cliArgs = OrquestraCLI.parseArguments(args);
-
-		if (!cliArgs.hasValidArgs()) {
-			System.out.println(
-					"------------------------------------------------------------------------------------------ ");
-			System.out.println("Usage: ");
-			System.out.println(
-					"   java -Dwebdriver.gecko.driver=./lib/geckodriver                                         ");
-			System.out.println(
-					"        -jar orquestra.jar --gf file_name.txt --sf script.tst --df object_definition.txt   ");
-			System.out.println(
-					"------------------------------------------------------------------------------------------ ");
-		}
+		validateCLIParameters(cliArgs);
 
 		Script script = ScriptReader.setReader(new FileSystemReader("")).readScript(cliArgs.getScriptFile());
 		ExecutionContext exec = new ExecutionContext(script);
-		// ScriptReader.setParser(new
-		// CommandParser(cliArgs.getGrammarFile())).parseCommands(script);
-		exec.setParser(new CommandParser(cliArgs.getGrammarFile()));
-		exec.setContextualParser(new ContextualParser());
+		exec.setContextualParser(new ContextualParser(new CommandParser(cliArgs.getGrammarFile())));
 		exec.getContextualParser().parse(script);
-		exec.getParser().parseCommands(script);
 
-		ChromeOptions options = new ChromeOptions();
-//		options.addArguments("headless");
-		options.addArguments("window-size=1200x600");
-		WebDriver driver = new ChromeDriver(options);
-//		WebDriver driver = new FirefoxDriver();
+		WebDriver driver = createDriver(cliArgs);
 
-		// ExecutionContext exec = new ExecutionContext(script);
 		exec.setDriver(driver);
 		exec.setSearcher(new WebElementFinder(cliArgs.getObjectDefinitionFile()).setSearcherContext(driver));
 
@@ -68,6 +49,34 @@ public class App {
 		OrquestraReporter.saveExecutionReport(new HtmlReporter(), exec);
 
 		System.out.println("Done!");
+	}
+
+	private static void validateCLIParameters(CliOptions cliArgs) {
+		if (!cliArgs.hasValidArgs()) {
+			System.out.println(
+					"------------------------------------------------------------------------------------------ ");
+			System.out.println("Usage: ");
+			System.out.println(
+					"   java -Dwebdriver.gecko.driver=./lib/geckodriver                                         ");
+			System.out.println(
+					"        -jar orquestra.jar --gf file_name.txt --sf script.tst --df object_definition.txt   ");
+			System.out.println(
+					"------------------------------------------------------------------------------------------ ");
+			System.exit(1);
+		}
+	}
+
+	private static WebDriver createDriver(CliOptions cliArgs) {
+		WebDriver driver;
+		if (cliArgs.getWebDriver().equals(CliOptions.CHROME)) {
+			ChromeOptions options = new ChromeOptions();
+//			options.addArguments("headless");
+//			options.addArguments("window-size=1200x600");
+			driver = new ChromeDriver(options);
+		} else {
+			driver = new FirefoxDriver();
+		}
+		return driver;
 	}
 
 }

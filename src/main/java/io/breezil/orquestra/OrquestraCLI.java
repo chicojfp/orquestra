@@ -15,6 +15,9 @@ public class OrquestraCLI {
 			case "--df":
 				option.setObjectDefinitionFile(args[i + 1]);
 				break;
+			case "--wd":
+				option.setWebDriver(args[i + 1]);
+				break;
 			}
 		}
 
